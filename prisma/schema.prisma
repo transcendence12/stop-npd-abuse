@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+// model User {
+//   id    String     @id @default(cuid())
+//   email String  @unique
+//   name  String?
+//   password String
+// }
+
+model Specialist {
+  id                  String                @id @default(cuid())
+  first_name          String
+  last_name           String
+  favorite            Boolean               @default(false)
+  email               String                @unique
+  website             String?
+  phone_number        String?
+  whats_app           Boolean?
+  youtube_channel     String?
+  city                String?
+  online              Boolean?
+  accepts_nfz         Boolean?
+  accepts_private     Boolean?
+
+  specialisations     SpecialistSpecialisation[]
+}
+
+model SpecialistSpecialisation {
+  specialistId        String
+  specialisationId    String
+  specialist          Specialist            @relation(fields: [specialistId], references: [id])
+  specialisation      SpecialisationType    @relation(fields: [specialisationId], references: [id])
+
+  @@id([specialistId, specialisationId])
+}
+
+model SpecialisationType {
+  id                  String                @id @default(cuid())
+  name                String                @unique
+  specialists         SpecialistSpecialisation[]
+}
