@@ -1,7 +1,7 @@
 {
   "name": "stop-npd-abuse",
   "version": "0.1.0",
-  "type":"module",
+  "type": "module",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@prisma/client": "^5.14.0",
+    "@vercel/postgres": "^0.8.0",
     "dotenv": "^16.4.5",
     "next": "14.2.3",
     "react": "^18",
