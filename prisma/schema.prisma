@@ -1,52 +1,41 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
-
-// model User {
-//   id    String     @id @default(cuid())
-//   email String  @unique
-//   name  String?
-//   password String
-// }
 
 model Specialist {
-  id                  String                @id @default(cuid())
-  first_name          String
-  last_name           String
-  favorite            Boolean               @default(false)
-  email               String                @unique
-  website             String?
-  phone_number        String?
-  whats_app           Boolean?
-  youtube_channel     String?
-  city                String?
-  online              Boolean?
-  accepts_nfz         Boolean?
-  accepts_private     Boolean?
-
-  specialisations     SpecialistSpecialisation[]
+  id                 String            @id @default(uuid())
+  firstName          String
+  lastName           String
+  specialisationType String[]
+  website            String?
+  email              String
+  phoneNumber        String?
+  whatsApp           Boolean
+  city               String?
+  online             Boolean
+  acceptsNfz         Boolean
+  acceptsPrivate     Boolean
+  company            String?
+  books              String[]
+  socialMediaLinks   SocialMediaLink[]
 }
 
-model SpecialistSpecialisation {
-  specialistId        String
-  specialisationId    String
-  specialist          Specialist            @relation(fields: [specialistId], references: [id])
-  specialisation      SpecialisationType    @relation(fields: [specialisationId], references: [id])
-
-  @@id([specialistId, specialisationId])
-}
-
-model SpecialisationType {
-  id                  String                @id @default(cuid())
-  name                String                @unique
-  specialists         SpecialistSpecialisation[]
+model SocialMediaLink {
+  id           String     @id @default(uuid())
+  platform     String
+  url          String
+  specialistId String
+  Specialist   Specialist @relation(fields: [specialistId], references: [id])
 }
