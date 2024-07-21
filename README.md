@@ -1,3 +1,7 @@
+## About this app
+
+Application with profiles of professionals providing support to, among others, people affected by a specific type of violence, so-called narcissistic violence. Demo: https://stop-npd-abuse.vercel.app/
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
