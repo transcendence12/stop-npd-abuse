@@ -5,37 +5,114 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
 }
 
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
+  schemas   = ["auth", "public"]
+}
+
+model User {
+  id          String   @id @default(uuid())
+  clerkUserId String   @unique
+  email       String   @unique
+  name        String?
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  votes       Vote[]
+
+  @@schema("public")
+}
+
+model Vote {
+  id        String   @id @default(uuid())
+  text      String
+  // relation to user
+  userId    String
+  user      User     @relation(fields: [userId], references: [clerkUserId], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@schema("public")
 }
 
 model Specialist {
-  id                 String            @id @default(uuid())
-  firstName          String
-  lastName           String
-  specialisationType String[]
-  website            String?
-  email              String
-  phoneNumber        String?
-  whatsApp           Boolean
-  city               String?
-  online             Boolean
-  acceptsNfz         Boolean
-  acceptsPrivate     Boolean
-  company            String?
-  books              String[]
-  socialMediaLinks   SocialMediaLink[]
+  id                  String               @id @default(dbgenerated("gen_random_uuid()")) @map("id")
+  firstName           String               @map("first_name")
+  lastName            String               @map("last_name")
+  website             String?
+  email               String               @unique
+  phoneNumber         String?              @map("phone_number")
+  isWhatsApp          Boolean?             @map("is_whats_app")
+  city                String?
+  isOnline            Boolean?             @map("is_online")
+  isAcceptedNfz       Boolean?             @map("is_accepted_nfz")
+  isPaid              Boolean?             @map("is_paid")
+  company             String?
+  socialMediaLinks    SocialMediaLink[]
+  specialisationTypes SpecialisationType[]
+  books               Book[]
+
+  @@map("specialists")
+  @@schema("public")
 }
 
 model SocialMediaLink {
-  id           String     @id @default(uuid())
+  id           String     @id @default(dbgenerated("gen_random_uuid()")) @map("id")
   platform     String
   url          String
-  specialistId String
-  Specialist   Specialist @relation(fields: [specialistId], references: [id])
+  specialistId String     @map("specialist_id")
+  specialist   Specialist @relation(fields: [specialistId], references: [id])
+
+  @@map("social_media_links")
+  @@schema("public")
+}
+
+model Book {
+  id           String     @id @default(dbgenerated("gen_random_uuid()")) @map("id")
+  title        String
+  specialistId String     @map("specialist_id")
+  specialist   Specialist @relation(fields: [specialistId], references: [id])
+
+  @@map("books")
+  @@schema("public")
+}
+
+enum SpecialisationType {
+  PSYCHOLOG
+  PSYCHOLOZKA
+  PSYCHOLOG_KLINICZNY
+  PSYCHOLOZKA_KLINICZNA
+  TERAPEUTA
+  PSYCHOTERAPEUTKA
+  COACH
+  PRAWNIK
+  PRAWNICZKA
+  MEDIATOR
+  MEDIATORKA
+  SEX_COACH
+  NAUCZYCIEL
+  NAUCZYCIELKA
+  TRENER
+  TRENERKA
+  PEDAGOG
+  PEDAGOZKA
+  PSYCHOLOG_SADOWY
+  PSYCHOLOZKA_SADOWA
+  KURATORKA_SADOWA
+  KURATOR_SADOWY
+  FACYLITATOR
+  FACYLITATORKA
+  MENTOR
+  MENTORKA
+  SPECJALISTA_POMOCY_OFIAROM_PRZEMOCY_DOMOWEJ
+  SPECJALISTKA_POMOCY_OFIAROM_PRZEMOCY_DOMOWEJ
+
+  @@map("Specialisation_type")
+  @@schema("public")
 }

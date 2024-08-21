@@ -1,17 +1,29 @@
+import { createClient } from "@supabase/supabase-js";
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
 const SPECIALISTS = [
   {
-    first_name: "Daria",
-    last_name: "Żukowska",
-    specialisation_type: ["psycholog kliniczny"],
+    firstName: "Daria",
+    lastName: "Żukowska",
+    specialisationType: ["psycholog kliniczny"],
     website: "https://dariazukowska.pl/",
     email: "psycholog.daria.zukowska@gmail.com",
     city: "Słupsk",
-    online: true,
-    accepts_nfz: false,
-    accepts_private: true,
+    isOnline: true,
+    isAcceptedNfz: false,
+    isPaid: true,
     socialMediaLinks: [
-      { platform: "Facebook", url: "https://www.facebook.com/dariazukowskapsycholog/" },
-      { platform: "Instagram", url: "https://www.instagram.com/zukowska.daria/" },
+      {
+        platform: "Facebook",
+        url: "https://www.facebook.com/dariazukowskapsycholog/",
+      },
+      {
+        platform: "Instagram",
+        url: "https://www.instagram.com/zukowska.daria/",
+      },
       {
         platform: "YouTube",
         url: "https://www.youtube.com/channel/UCl_hm5r5Osb818eIB5t7j-g",
@@ -19,19 +31,25 @@ const SPECIALISTS = [
     ],
   },
   {
-    first_name: "Kamila",
-    last_name: "Kazimierczak",
-    specialisation_type: ["psychoterapeutka"],
+    firstName: "Kamila",
+    lastName: "Kazimierczak",
+    specialisationType: ["psychoterapeutka"],
     website: "https://kamilakazmierczak.pl/",
     email: "kamilaakazmierczak@gmail.com",
-    whats_app: false,
+    isWhatsApp: false,
     city: "Gdynia",
-    online: true,
-    accepts_nfz: false,
-    accepts_private: true,
+    isOnline: true,
+    isAcceptedNfz: false,
+    isPaid: true,
     socialMediaLinks: [
-      { platform: "Facebook", url: "https://www.facebook.com/psychoterapiakamilakazmierczak" },
-      { platform: "Instagram", url: "https://www.instagram.com/kam.kazmierczak/" },
+      {
+        platform: "Facebook",
+        url: "https://www.facebook.com/psychoterapiakamilakazmierczak",
+      },
+      {
+        platform: "Instagram",
+        url: "https://www.instagram.com/kam.kazmierczak/",
+      },
       {
         platform: "YouTube",
         url: "https://www.youtube.com/channel/UCvVr8ojhD2m2Dp2OTN-qUMg",
@@ -39,18 +57,21 @@ const SPECIALISTS = [
     ],
   },
   {
-    first_name: "Tatiana",
-    last_name: "Mitkowa",
-    specialisation_type: ["coach"],
+    firstName: "Tatiana",
+    lastName: "Mitkowa",
+    specialisationType: ["coach"],
     email: "wproject12@gmail.com",
-    phone_number: "786 947 048",
-    whats_app: true,
+    phoneNumber: "786 947 048",
+    isWhatsApp: true,
     city: "Kraków",
-    online: true,
-    accepts_nfz: false,
-    accepts_private: true,
+    isOnline: true,
+    isAcceptedNfz: false,
+    isPaid: true,
     socialMediaLinks: [
-      { platform: "Instagram", url: "https://www.instagram.com/tatiana_mitkowa/" },
+      {
+        platform: "Instagram",
+        url: "https://www.instagram.com/tatiana_mitkowa/",
+      },
       {
         platform: "YouTube",
         url: "https://www.youtube.com/channel/UC9iePzRAvpxryGq1YbzpcJw",
@@ -58,21 +79,24 @@ const SPECIALISTS = [
     ],
   },
   {
-    first_name: " dr Izabela",
-    last_name: "Kopaniszyn",
-    specialisation_type: ["psychoterapeutka", "coach"],
+    firstName: " dr Izabela",
+    lastName: "Kopaniszyn",
+    specialisationType: ["psychoterapeutka", "coach"],
     website: "https://masteryourlife.pl/",
     email: "info@masteryourlife.pl",
-    phone_number: "+351 912 901 170",
-    whats_app: true,
+    phoneNumber: "+351 912 901 170",
+    isWhatsApp: true,
     city: "",
-    online: true,
-    accepts_nfz: false,
-    accepts_private: true,
+    isOnline: true,
+    isAcceptedNfz: false,
+    isPaid: true,
     books: ["Antyczłowiek. Mroczna strona człowieka", "Ja, czyli kto?"],
     socialMediaLinks: [
       { platform: "Facebook", url: "https://www.facebook.com/108foundation" },
-      { platform: "Instagram", url: "https://www.instagram.com/master.yourlife/" },
+      {
+        platform: "Instagram",
+        url: "https://www.instagram.com/master.yourlife/",
+      },
       {
         platform: "YouTube",
         url: "https://www.youtube.com/@masteryourlifeizabela",
@@ -80,18 +104,18 @@ const SPECIALISTS = [
     ],
   },
   {
-    first_name: "Katarzyna",
-    last_name: "Zboś",
-    specialisation_type: ["prawnik", "mediator"],
+    firstName: "Katarzyna",
+    lastName: "Zboś",
+    specialisationType: ["prawnik", "mediator"],
     website: "https://prawnik-mediator.com.pl/",
     email: "zbos.katarzyna@gmail.com",
-    phone_number: "509042226",
-    whats_app: false,
+    phoneNumber: "509042226",
+    isWhatsApp: false,
     company: "Kancelaria Consensus",
     city: "Warszawa",
-    online: true,
-    accepts_nfz: false,
-    accepts_private: true,
+    isOnline: true,
+    isAcceptedNfz: false,
+    isPaid: true,
     socialMediaLinks: [
       {
         platform: "Facebook",
@@ -104,17 +128,17 @@ const SPECIALISTS = [
     ],
   },
   {
-    first_name: "Magdalena",
-    last_name: "Bajsarowicz",
-    specialisation_type: ["prawnik", "psycholożka", "psycholog sądowy"],
+    firstName: "Magdalena",
+    lastName: "Bajsarowicz",
+    specialisationType: ["prawnik", "psycholożka", "psycholog sądowy"],
     website: "https://magdalenabajsarowicz.pl/",
     email: "biuro@centrumsprawrozwodowych.pl",
-    phone_number: "785289888",
-    whats_app: false,
+    phoneNumber: "785289888",
+    isWhatsApp: false,
     city: "Wrocław",
-    online: false,
-    accepts_nfz: false,
-    accepts_private: true,
+    isOnline: false,
+    isAcceptedNfz: false,
+    isPaid: true,
     books: ["Ebook Narcyz w sądzie. Jak ochronić siebie i dzieci."],
     socialMediaLinks: [
       {
@@ -132,16 +156,16 @@ const SPECIALISTS = [
     ],
   },
   {
-    first_name: "Patryk",
-    last_name: "Wójcik",
-    specialisation_type: ["psycholog"],
+    firstName: "Patryk",
+    lastName: "Wójcik",
+    specialisationType: ["psycholog"],
     website: "https://www.psychologianawynos.pl/",
     email: "kontakt@psychologianawynos.pl",
-    whats_app: false,
+    isWhatsApp: false,
     city: null,
-    online: true,
-    accepts_nfz: false,
-    accepts_private: true,
+    isOnline: true,
+    isAcceptedNfz: false,
+    isPaid: true,
     socialMediaLinks: [
       {
         platform: "YouTube",
@@ -150,9 +174,9 @@ const SPECIALISTS = [
     ],
   },
   {
-    first_name: "Fundacja Liberos",
-    last_name: "Fundacja Liberos",
-    specialisation_type: [
+    firstName: "Fundacja Liberos",
+    lastName: "Fundacja Liberos",
+    specialisationType: [
       "psycholog",
       "psychoterapeuta",
       "prawnik",
@@ -161,12 +185,12 @@ const SPECIALISTS = [
     ],
     website: "https://liberos.pl/",
     email: "kontakt@liberos.pl",
-    phone_number: "+ 48 508 400 204",
-    whats_app: false,
+    phoneNumber: "+ 48 508 400 204",
+    isWhatsApp: false,
     company: "Fundacja Liberos",
     city: "Warszawa",
-    accepts_nfz: true,
-    accepts_private: true,
+    isAcceptedNfz: true,
+    isPaid: true,
     socialMediaLinks: [
       {
         platform: "Facebook",
@@ -175,16 +199,16 @@ const SPECIALISTS = [
     ],
   },
   {
-    first_name: "Kancelaria Liberos",
-    last_name: "Kancelaria Liberos",
-    specialisation_type: ["prawnik"],
+    firstName: "Kancelaria Liberos",
+    lastName: "Kancelaria Liberos",
+    specialisationType: ["prawnik"],
     website: "https://liberos.pl/",
     email: "kancelaria@liberos.pl",
-    phone_number: "+ 48 798 420 629",
-    whats_app: false,
+    phoneNumber: "+ 48 798 420 629",
+    isWhatsApp: false,
     company: "Fundacja Liberos",
     city: "Warszawa",
-    accepts_private: true,
+    isPaid: true,
     socialMediaLinks: [
       {
         platform: "Facebook",
@@ -193,16 +217,16 @@ const SPECIALISTS = [
     ],
   },
   {
-    first_name: "Ewa",
-    last_name: "Skrzypczak",
-    specialisation_type: ["psycholożka", "terapeutka", "coach"],
+    firstName: "Ewa",
+    lastName: "Skrzypczak",
+    specialisationType: ["psycholożka", "terapeutka", "coach"],
     email: "ewaskrzypczakcoach@gmail.com",
-    phone_number: "+ 48 798 944 333",
-    whats_app: true,
-    online: true,
+    phoneNumber: "+ 48 798 944 333",
+    isWhatsApp: true,
+    isOnline: true,
     website: "https://totwojczas.com.pl/",
     city: "Łódź",
-    accepts_private: true,
+    isPaid: true,
     company: "To Twój Czas",
     socialMediaLinks: [
       { platform: "Facebook", url: "https://www.facebook.com/totwojczas" },
@@ -217,15 +241,15 @@ const SPECIALISTS = [
     ],
   },
   {
-    first_name: "Mirela",
-    last_name: "Batog",
-    specialisation_type: ["psycholog", "psychoterapeutka"],
+    firstName: "Mirela",
+    lastName: "Batog",
+    specialisationType: ["psycholog", "psychoterapeutka"],
     website: "https://mirelabatog.pl/",
     email: "kontakt@mirelabatog.pl",
-    phone_number: "",
-    whats_app: false,
+    phoneNumber: "",
+    isWhatsApp: false,
     city: "Wrocław",
-    accepts_private: true,
+    isPaid: true,
     socialMediaLinks: [
       {
         platform: "Instagram",
@@ -235,13 +259,13 @@ const SPECIALISTS = [
     ],
   },
   {
-    first_name: "Artur",
-    last_name: "Ostrowski",
-    specialisation_type: ["coach", "psychoterapeuta", "trener"],
+    firstName: "Artur",
+    lastName: "Ostrowski",
+    specialisationType: ["coach", "psychoterapeuta", "trener"],
     website: "https://www.egomastery.pl/",
     email: "https://www.egomastery.pl/kontakt",
-    whats_app: false,
-    accepts_private: true,
+    isWhatsApp: false,
+    isPaid: true,
     socialMediaLinks: [
       { platform: "Instagram", url: "https://www.instagram.com/ego_mastery/" },
       { platform: "Facebook", url: "https://www.facebook.com/egomastery" },
@@ -250,15 +274,15 @@ const SPECIALISTS = [
     ],
   },
   {
-    first_name: "Izabela",
-    last_name: "Porada",
-    specialisation_type: ["psycholog", "psychoterapeutka"],
+    firstName: "Izabela",
+    lastName: "Porada",
+    specialisationType: ["psycholog", "psychoterapeutka"],
     website: "https://www.poradapsycholog.com/",
     email: "izabela.porada@wp.pl",
-    phone_number: "+48 605220727",
-    whats_app: true,
+    phoneNumber: "+48 605220727",
+    isWhatsApp: true,
     city: "Poznań",
-    accepts_private: true,
+    isPaid: true,
     socialMediaLinks: [
       {
         platform: "Instagram",
@@ -275,14 +299,14 @@ const SPECIALISTS = [
     ],
   },
   {
-    first_name: "Marta",
-    last_name: "Niedźwiecka",
-    specialisation_type: ["psycholożka", "sex coach"],
+    firstName: "Marta",
+    lastName: "Niedźwiecka",
+    specialisationType: ["psycholożka", "sex coach"],
     website: "https://niedzwiecka.net/",
     email: "https://niedzwiecka.net/kontakt/",
-    phone_number: "+48 518 863 572",
+    phoneNumber: "+48 518 863 572",
     city: "Warszawa",
-    accepts_private: true,
+    isPaid: true,
     books: ["Slow sex", "O zmierzchu"],
     socialMediaLinks: [
       { platform: "Instagram", url: "instagram.com/niedzwiecka_marta" },
@@ -294,11 +318,11 @@ const SPECIALISTS = [
     ],
   },
   {
-    first_name: "Izabela",
-    last_name: "Banasiak",
+    firstName: "Izabela",
+    lastName: "Banasiak",
     email: "kontakt@duluth.pl",
-    phone_number: "693 063 903",
-    specialisation_type: [
+    phoneNumber: "693 063 903",
+    specialisationType: [
       "pedagożka",
       "trenerka",
       "kuratorka sądowa",
@@ -317,20 +341,20 @@ const SPECIALISTS = [
     ],
   },
   {
-    first_name: "Monika",
-    last_name: "Śliz-Bryk",
+    firstName: "Monika",
+    lastName: "Śliz-Bryk",
     email: "m.sliz@poczta.fm",
-    phone_number: "+48 504 223 969",
-    specialisation_type: ["adwokat", "prawnik"],
+    phoneNumber: "+48 504 223 969",
+    specialisationType: ["adwokat", "prawnik"],
     website: "www.msb-adwokat.pl",
     company: "MONIKA ŚLIZ-BRYK KANCELARIA ADWOKACKA",
     city: "Kraków",
   },
   {
-    first_name: "Jarosław",
-    last_name: "Gibas",
+    firstName: "Jarosław",
+    lastName: "Gibas",
     email: "https://jaroslawgibas.com/contact/",
-    specialisation_type: ["trener", "nauczyciel", "terapeuta transpersonalny"],
+    specialisationType: ["trener", "nauczyciel", "terapeuta transpersonalny"],
     website: "https://jaroslawgibas.com/",
     company: "",
     city: "Katowice",
@@ -346,11 +370,11 @@ const SPECIALISTS = [
     ],
   },
   {
-    first_name: "Karolina",
-    last_name: "Jewiarz",
-    specialisation_type: ["adwokat", "prawnik"],
+    firstName: "Karolina",
+    lastName: "Jewiarz",
+    specialisationType: ["adwokat", "prawnik"],
     email: "kancelaria@jewiarz.com",
-    phone_number: "505 589 891",
+    phoneNumber: "505 589 891",
     company: "Karolina Jewiarz Kancelaria Adwokacka",
     city: "Wrocław",
     socialMediaLinks: [
@@ -365,6 +389,32 @@ const SPECIALISTS = [
       {
         platform: "YouTube",
         url: "https://www.youtube.com/@kobietawtodze7016",
+      },
+    ],
+  },
+  {
+    firstName: "Magdalena",
+    lastName: "Socha",
+    specialisationType: ["coach"],
+    website: "https://magdalenasocha.pl/",
+    email: "kontakt@magdalenasocha.pl",
+    isWhatsApp: false,
+    city: "",
+    isOnline: true,
+    isAcceptedNfz: false,
+    isPaid: true,
+    socialMediaLinks: [
+      {
+        platform: "Facebook",
+        url: "https://www.facebook.com/profile.php?id=100086177704497",
+      },
+      {
+        platform: "Instagram",
+        url: "https://www.instagram.com/p/ChpbV7ij71O/?utm_source",
+      },
+      {
+        platform: "YouTube",
+        url: "https://www.youtube.com/@MagdalenaSocha",
       },
     ],
   },
@@ -384,3 +434,54 @@ const SPECIALISTS = [
 //     password: "anotherpassword",
 //   },
 // ];
+
+async function seedDatabase() {
+  for (const specialist of SPECIALISTS) {
+    // Insert specialist
+    const { data: specialistData, error: specialistError } = await supabase
+      .from("specialist")
+      .insert({
+        firstName: specialist.firstName,
+        lastName: specialist.lastName,
+        specialisationType: specialist.specialisationType,
+        website: specialist.website,
+        email: specialist.email,
+        phoneNumber: specialist.phoneNumber,
+        isWhatsApp: specialist.isWhatsApp,
+        city: specialist.city,
+        isOnline: specialist.isOnline,
+        isAcceptedNfz: specialist.isAcceptedNfz,
+        isPaid: specialist.isPaid,
+        company: specialist.company,
+        books: specialist.books,
+      })
+      .select();
+
+    if (specialistError) {
+      console.error("Error inserting specialist:", specialistError);
+      continue;
+    }
+
+    // Insert social media links for the specialist
+    if (
+      specialist.socialMediaLinks &&
+      specialist.socialMediaLinks.length > 0
+    ) {
+      for (const link of specialist.socialMediaLinks) {
+        const { error: linkError } = await supabase
+          .from("social_media_link")
+          .insert({
+            platform: link.platform,
+            url: link.url,
+            specialistId: specialistData[0].id,
+          });
+
+        if (linkError) {
+          console.error("Error inserting social media link:", linkError);
+        }
+      }
+    }
+  }
+}
+
+seedDatabase();
