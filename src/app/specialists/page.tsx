@@ -11,7 +11,7 @@ interface SpecialistsPageProps {
   specialists: Specialist[];
 }
 
-export async function fetchSpecialists(): Promise<Specialist[]> {
+async function fetchSpecialists(): Promise<Specialist[]> {
   try {
     const specialists = await prisma.specialist.findMany({
       select: {
