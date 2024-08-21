@@ -5,40 +5,61 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["multiSchema"]
+  provider = "prisma-client-js"
+  // previewFeatures = ["multiSchema"]
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
-  schemas   = ["auth", "public"]
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  // directUrl = env("DIRECT_URL")
+  // schemas   = ["auth", "public"]
 }
+// chcę zachować spójność w używaniu clerkUserId jako klucza głównego, a userId jako klucza obcego w modelu Vote
+// chcę zachować tą samą logikę do wszystkich relacji, aby zachować spójność
 
 model User {
-  id          String   @id @default(uuid())
-  clerkUserId String   @unique
-  email       String   @unique
+  id          String     @id @default(uuid())
+  clerkUserId String     @unique
+  email       String     @unique
   name        String?
   imageUrl    String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
   votes       Vote[]
+  favorites   Favorite[]
+  role        Role       @default(USER)
 
-  @@schema("public")
+  // @@schema("public")
 }
-
+// Model Vote będzie powiązany z User poprzez userId, który odnosi się do clerkUserId
 model Vote {
-  id        String   @id @default(uuid())
-  text      String
+  id           String     @id @default(uuid())
+  text         String?
   // relation to user
-  userId    String
-  user      User     @relation(fields: [userId], references: [clerkUserId], onDelete: Cascade)
-  createdAt DateTime @default(now())
+  userId       String
+  user         User       @relation(fields: [userId], references: [clerkUserId], onDelete: Cascade)
+  createdAt    DateTime   @default(now())
+  specialistId String
+  specialist   Specialist @relation(fields: [specialistId], references: [id], onDelete: Cascade)
+  // @@schema("public")
 
   @@index([userId])
-  @@schema("public")
+  @@index([specialistId])
+}
+// Favorite będzie również korzystać z userId, który odnosi się do clerkUserId w modelu User
+
+model Favorite {
+  id           String     @id @default(uuid())
+  userId       String
+  user         User       @relation(fields: [userId], references: [clerkUserId], onDelete: Cascade)
+  specialistId String
+  specialist   Specialist @relation(fields: [specialistId], references: [id], onDelete: Cascade)
+  createdAt    DateTime   @default(now())
+
+  @@unique([userId, specialistId]) // Aby zapobiec wielokrotnemu dodaniu tego samego specjalisty do ulubionych przez jednego użytkownika
+  @@index([userId])
+  @@index([specialistId])
 }
 
 model Specialist {
@@ -57,9 +78,11 @@ model Specialist {
   socialMediaLinks    SocialMediaLink[]
   specialisationTypes SpecialisationType[]
   books               Book[]
+  // @@schema("public")
+  favorites            Favorite[]
+  votes                Vote[]
 
   @@map("specialists")
-  @@schema("public")
 }
 
 model SocialMediaLink {
@@ -68,9 +91,9 @@ model SocialMediaLink {
   url          String
   specialistId String     @map("specialist_id")
   specialist   Specialist @relation(fields: [specialistId], references: [id])
+  // @@schema("public")
 
   @@map("social_media_links")
-  @@schema("public")
 }
 
 model Book {
@@ -78,9 +101,9 @@ model Book {
   title        String
   specialistId String     @map("specialist_id")
   specialist   Specialist @relation(fields: [specialistId], references: [id])
+  // @@schema("public")
 
   @@map("books")
-  @@schema("public")
 }
 
 enum SpecialisationType {
@@ -112,7 +135,13 @@ enum SpecialisationType {
   MENTORKA
   SPECJALISTA_POMOCY_OFIAROM_PRZEMOCY_DOMOWEJ
   SPECJALISTKA_POMOCY_OFIAROM_PRZEMOCY_DOMOWEJ
+  // @@schema("public")
 
   @@map("Specialisation_type")
-  @@schema("public")
+}
+
+enum Role {
+  ADMIN
+  MODERATOR
+  USER
 }
