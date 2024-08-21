@@ -19,7 +19,7 @@ datasource db {
 // chcę zachować tą samą logikę do wszystkich relacji, aby zachować spójność
 
 model User {
-  id          String     @id @default(uuid())
+  id          String     @id @default(dbgenerated("gen_random_uuid()"))
   clerkUserId String     @unique
   email       String     @unique
   name        String?
@@ -34,7 +34,7 @@ model User {
 }
 // Model Vote będzie powiązany z User poprzez userId, który odnosi się do clerkUserId
 model Vote {
-  id           String     @id @default(uuid())
+  id           String     @id @default(dbgenerated("gen_random_uuid()"))
   text         String?
   // relation to user
   userId       String
@@ -50,7 +50,7 @@ model Vote {
 // Favorite będzie również korzystać z userId, który odnosi się do clerkUserId w modelu User
 
 model Favorite {
-  id           String     @id @default(uuid())
+  id           String     @id @default(dbgenerated("gen_random_uuid()"))
   userId       String
   user         User       @relation(fields: [userId], references: [clerkUserId], onDelete: Cascade)
   specialistId String
@@ -107,14 +107,19 @@ model Book {
 }
 
 enum SpecialisationType {
+  TERAPEUTA_TRANSPERSONALNY
+  TERAPEUTKA_TRANSPERSONALNA
   PSYCHOLOG
   PSYCHOLOZKA
   PSYCHOLOG_KLINICZNY
   PSYCHOLOZKA_KLINICZNA
   TERAPEUTA
+  TERAPEUTKA
+  PSYCHOTERAPEUTA
   PSYCHOTERAPEUTKA
   COACH
   PRAWNIK
+  ADWOKAT
   PRAWNICZKA
   MEDIATOR
   MEDIATORKA
@@ -135,6 +140,7 @@ enum SpecialisationType {
   MENTORKA
   SPECJALISTA_POMOCY_OFIAROM_PRZEMOCY_DOMOWEJ
   SPECJALISTKA_POMOCY_OFIAROM_PRZEMOCY_DOMOWEJ
+  SPECJALISTKA_W_ZAKRESIE_POMOCY_OFIAROM_PRZEMOCY_DOMOWEJ
   // @@schema("public")
 
   @@map("Specialisation_type")
