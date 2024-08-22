@@ -1,4 +1,5 @@
 import { Specialist } from "@/types/Specialist";
+import Link from "next/link";
 
 interface SpecialistsPageProps {
   specialists: Specialist[];
@@ -16,10 +17,25 @@ export const SpecialistsList: React.FC<SpecialistsPageProps> = ({
         {specialists &&
           specialists.map((specialist) => (
             <li key={specialist.id} className="border p-4 rounded-md shadow-sm">
-              <p className="text-xl font-semibold">{specialist.firstName} {specialist.lastName}</p>
-              <p className="text-grey-600">Specjalizacje: {specialist.specialisation.join(", ").replace("_", " ").toLowerCase()}</p>
-              <p className="text-grey-600">Telefon: {specialist.phoneNumber ? specialist.phoneNumber : "Brak danych"}</p>
-              <p className="text-grey-600">Email: {specialist.email}</p>
+              <Link href={`/specialists/${specialist.id}`}>
+                <p className="text-xl font-semibold">
+                  {specialist.firstName} {specialist.lastName}
+                </p>
+                <p className="text-grey-600">
+                  Specjalizacje:{" "}
+                  {specialist.specialisation
+                    .join(", ")
+                    .replace("_", " ")
+                    .toLowerCase()}
+                </p>
+                <p className="text-grey-600">
+                  Telefon:{" "}
+                  {specialist.phoneNumber
+                    ? specialist.phoneNumber
+                    : "Brak danych"}
+                </p>
+                <p className="text-grey-600">Email: {specialist.email}</p>
+              </Link>
             </li>
           ))}
       </ul>
