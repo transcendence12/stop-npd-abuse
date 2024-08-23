@@ -39,7 +39,7 @@ export const SpecialistsList: React.FC<SpecialistsPageProps> = ({
                 <p className="text-grey-600">Email: {specialist.email}</p>
               </Link>
               <div className="flex gap-6 justify-center items-baseline">
-                <ButtonAddToFavorite />
+                <ButtonAddToFavorite specialistId={specialist.id}/>
                 <ButtonSeeMore specialistId={specialist.id} />
               </div>
             </li>
