@@ -1,8 +1,9 @@
-'use client';
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 const navLinks = [
   { href: "/", label: "Strona główna" },
@@ -11,8 +12,8 @@ const navLinks = [
 ];
 
 export const Header = () => {
-    const pathname = usePathname();
-    console.log(pathname)
+  const pathname = usePathname();
+  console.log(pathname);
   return (
     <header className="flex justify-between items-center py-4 px-8 border-b">
       <Link href="/">
@@ -29,11 +30,22 @@ export const Header = () => {
         <ul className="flex gap-x-5 text-[14px]">
           {navLinks.map((link) => (
             <li key={link.href}>
-              <Link className={`${pathname === link.href ? "text-zinc-900" : "text-zinc-400"}`} href={link.href}>
+              <Link
+                className={`${
+                  pathname === link.href ? "text-zinc-900" : "text-zinc-400"
+                }`}
+                href={link.href}
+              >
                 {link.label}
               </Link>
             </li>
           ))}
+          <SignedOut>
+            <SignInButton />
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
         </ul>
       </nav>
     </header>
