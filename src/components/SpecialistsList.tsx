@@ -1,6 +1,7 @@
 import { Specialist } from "@/types/Specialist";
 import Link from "next/link";
 import { ButtonSeeMore } from "./ButtonSeeMore";
+import { ButtonAddToFavorite } from "./ButtonAddToFavorite";
 
 interface SpecialistsPageProps {
   specialists: Specialist[];
@@ -37,11 +38,12 @@ export const SpecialistsList: React.FC<SpecialistsPageProps> = ({
                 </p>
                 <p className="text-grey-600">Email: {specialist.email}</p>
               </Link>
-              <ButtonSeeMore specialistId={specialist.id}/>
+              <div className="flex gap-6 justify-center items-baseline">
+                <ButtonAddToFavorite />
+                <ButtonSeeMore specialistId={specialist.id} />
+              </div>
             </li>
-            
           ))}
-          
       </ul>
     </main>
   );

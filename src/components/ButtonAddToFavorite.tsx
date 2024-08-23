@@ -2,6 +2,6 @@
 
 export const ButtonAddToFavorite = () => {
     return (
-        <button>Dodaj do ulubionych</button>
+        <button className="text-red-700">❤ Dodaj do ulubionych</button>
     )
 }
