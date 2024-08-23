@@ -1,5 +1,6 @@
 import { Specialist } from "@/types/Specialist";
 import Link from "next/link";
+import { ButtonSeeMore } from "./ButtonSeeMore";
 
 interface SpecialistsPageProps {
   specialists: Specialist[];
@@ -36,8 +37,11 @@ export const SpecialistsList: React.FC<SpecialistsPageProps> = ({
                 </p>
                 <p className="text-grey-600">Email: {specialist.email}</p>
               </Link>
+              <ButtonSeeMore specialistId={specialist.id}/>
             </li>
+            
           ))}
+          
       </ul>
     </main>
   );
