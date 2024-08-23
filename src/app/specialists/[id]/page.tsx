@@ -11,72 +11,85 @@ async function SpecialistItemPage({ params }: SpecialistByIdProps) {
     return notFound();
   }
   return (
-    <main className="mb-5">
+    <main className="flex flex-col items-center justify-center mt-8">
       <h1 className="text-4xl font-bold mb-4">
-        {specialist.firstName} {specialist.lastName}
+        {specialist.firstName} {specialist.lastName}{" "}
+        <span className="text-red-800 font-normal text-m ml-7">
+          {" "}
+          ❤ Dodaj do ulubionych
+        </span>
       </h1>
-      <p>
-        <strong>Specjalizacje: </strong>
-        {specialist.specialisation &&
-          specialist.specialisation.join(", ").replace("_", " ").toLowerCase()}
-      </p>
-      <p>
-        <strong>Miasto: </strong>
-        {specialist.city}
-      </p>
-      <p>
-        <strong>Email: </strong><a href={`mailto:${specialist.email}`}>{specialist.email}</a>
-      </p>
-      <p>
-        <strong>Numer telefonu: </strong><a href={`tel:${specialist.phoneNumber}`}>{specialist.phoneNumber}</a>
-        
-      </p>
-      {specialist.website && (
+      <section className="px-12 py-6 flex flex-col justify-center items-start gap-3">
         <p>
-          <strong>Strona internetowa: </strong>
-          <Link href={specialist.website}>{specialist.website}</Link>
+          <strong>Specjalizacje: </strong>
+          {specialist.specialisation &&
+            specialist.specialisation
+              .join(", ")
+              .replace("_", " ")
+              .toLowerCase()}
         </p>
-      )}
-      <p>
-        <strong>WhatsApp: </strong>
-        {specialist.isWhatsApp ? "Tak" : "Nie"}
-      </p>
-      <p>
-        <strong>Online: </strong>
-        {specialist.isOnline ? "Tak" : "Nie"}
-      </p>
-      <p>
-        <strong>Na NFZ: </strong>
-        {specialist.isAcceptedNfz ? "Tak" : "Nie"}
-      </p>
-      <p>
-        <strong>Płatnie: </strong>
-        {specialist.isPaid ? "Tak" : "Nie"}
-      </p>
-      <p>
-        <strong>Nazwa firmy: </strong>
-        {specialist.company || "Brak danych"}
-      </p>
-      <div>
-        {specialist.socialMediaLinks && specialist.socialMediaLinks.length > 0 ? (
-          <div>
-          <strong>Media społecznościowe: </strong>
-          {
-            specialist.socialMediaLinks.map((link, index)=>(
-              <span key={index}>
-              <Link href={link.url}>{link.platform || link.url}</Link>
-              {specialist.socialMediaLinks && index < specialist.socialMediaLinks.length - 1 ? ", " : "" }
-              </span>
-            ))
-          }
+        <p>
+          <strong>Miasto: </strong>
+          {specialist.city}
+        </p>
+        <p>
+          <strong>Email: </strong>
+          <a href={`mailto:${specialist.email}`}>{specialist.email}</a>
+        </p>
+        <p>
+          <strong>Numer telefonu: </strong>
+          <a href={`tel:${specialist.phoneNumber}`}>{specialist.phoneNumber}</a>
+        </p>
+        {specialist.website && (
+          <p>
+            <strong>Strona internetowa: </strong>
+            <Link href={specialist.website}>{specialist.website}</Link>
+          </p>
+        )}
+        <p>
+          <strong>WhatsApp: </strong>
+          {specialist.isWhatsApp ? "Tak" : "Nie"}
+        </p>
+        <p>
+          <strong>Online: </strong>
+          {specialist.isOnline ? "Tak" : "Nie"}
+        </p>
+        <p>
+          <strong>Na NFZ: </strong>
+          {specialist.isAcceptedNfz ? "Tak" : "Nie"}
+        </p>
+        <p>
+          <strong>Płatnie: </strong>
+          {specialist.isPaid ? "Tak" : "Nie"}
+        </p>
+        <p>
+          <strong>Nazwa firmy: </strong>
+          {specialist.company || "Brak danych"}
+        </p>
+        <div>
+          {specialist.socialMediaLinks &&
+          specialist.socialMediaLinks.length > 0 ? (
+            <div>
+              <strong>Media społecznościowe: </strong>
+              {specialist.socialMediaLinks.map((link, index) => (
+                <span key={index}>
+                  <Link href={link.url}>{link.platform || link.url}</Link>
+                  {specialist.socialMediaLinks &&
+                  index < specialist.socialMediaLinks.length - 1
+                    ? ", "
+                    : ""}
+                </span>
+              ))}
+            </div>
+          ) : (
+            "Brak danych"
+          )}
         </div>
-        ) : "Brak danych"}
-
-      </div>
-      <p>
-        <strong>Książki: </strong>
-        {specialist.books?.map((book) => book.title + ", ")}
-      </p>
+        <p>
+          <strong>Książki: </strong>
+          {specialist.books?.map((book) => book.title + ", ")}
+        </p>
+      </section>
     </main>
   );
 }

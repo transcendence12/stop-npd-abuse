@@ -1,7 +1,9 @@
 
-
-export const ButtonAddToFavorite = () => {
+interface ButtonAddToFavoriteProps {
+    specialistId: string;
+}
+export const ButtonAddToFavorite:React.FC<ButtonAddToFavoriteProps> = ({specialistId}) => {
     return (
-        <button>Dodaj do ulubionych</button>
+        <button className="text-red-700">❤ Dodaj do ulubionych</button>
     )
 }
