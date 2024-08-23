@@ -44,7 +44,7 @@ export const Header = () => {
             <SignInButton />
           </SignedOut>
           <SignedIn>
-            <UserButton />
+            <UserButton showName/>
           </SignedIn>
         </ul>
       </nav>
