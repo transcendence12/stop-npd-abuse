@@ -16,51 +16,51 @@ async function SpecialistItemPage({ params }: SpecialistByIdProps) {
         {specialist.firstName} {specialist.lastName}
       </h1>
       <p>
-        <strong>Specjalizacje:</strong>
+        <strong>Specjalizacje: </strong>
         {specialist.specialisation &&
           specialist.specialisation.join(", ").replace("_", " ").toLowerCase()}
       </p>
       <p>
-        <strong>Miasto:</strong>
+        <strong>Miasto: </strong>
         {specialist.city}
       </p>
       <p>
-        <strong>Email:</strong><a href={`mailto:${specialist.email}`}>{specialist.email}</a>
+        <strong>Email: </strong><a href={`mailto:${specialist.email}`}>{specialist.email}</a>
       </p>
       <p>
-        <strong>Numer telefonu:</strong><a href={`tel:${specialist.phoneNumber}`}>{specialist.phoneNumber}</a>
+        <strong>Numer telefonu: </strong><a href={`tel:${specialist.phoneNumber}`}>{specialist.phoneNumber}</a>
         
       </p>
       {specialist.website && (
         <p>
-          <strong>Strona internetowa:</strong>
+          <strong>Strona internetowa: </strong>
           <Link href={specialist.website}>{specialist.website}</Link>
         </p>
       )}
       <p>
-        <strong>WhatsApp:</strong>
+        <strong>WhatsApp: </strong>
         {specialist.isWhatsApp ? "Tak" : "Nie"}
       </p>
       <p>
-        <strong>Online:</strong>
+        <strong>Online: </strong>
         {specialist.isOnline ? "Tak" : "Nie"}
       </p>
       <p>
-        <strong>Na NFZ:</strong>
+        <strong>Na NFZ: </strong>
         {specialist.isAcceptedNfz ? "Tak" : "Nie"}
       </p>
       <p>
-        <strong>Płatnie:</strong>
+        <strong>Płatnie: </strong>
         {specialist.isPaid ? "Tak" : "Nie"}
       </p>
       <p>
-        <strong>Nazwa firmy:</strong>
+        <strong>Nazwa firmy: </strong>
         {specialist.company || "Brak danych"}
       </p>
       <div>
         {specialist.socialMediaLinks && specialist.socialMediaLinks.length > 0 ? (
           <div>
-          <strong>Media społecznościowe:</strong>
+          <strong>Media społecznościowe: </strong>
           {
             specialist.socialMediaLinks.map((link, index)=>(
               <span key={index}>
@@ -74,7 +74,7 @@ async function SpecialistItemPage({ params }: SpecialistByIdProps) {
 
       </div>
       <p>
-        <strong>Książki:</strong>
+        <strong>Książki: </strong>
         {specialist.books?.map((book) => book.title + ", ")}
       </p>
     </main>
