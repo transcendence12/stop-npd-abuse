@@ -2,6 +2,22 @@
 
 Application with profiles of professionals providing support to, among others, people affected by a specific type of violence, so-called narcissistic violence. Demo: https://stop-npd-abuse.vercel.app/
 
+###
+Features:
+- Displaying list of specialists;
+- Displaying specialist's details ui;
+- Auth with Clerk Provider;
+- Saving data in Neon database with Prisma ORM;
+- Adding to Favourites:
+Purpose: A registered user adds a specialist to his/her favourites list in order to easily find him/her in the future.
+Relationship: This is a many-to-many relationship between users and specialists, as multiple users can add the same specialist to their favourites.
+Usage: Favourites is a more private feature that allows users to keep track of their preferred specialists.
+- Voting:
+Purpose: A registered user can vote for a specialist which represents a form of public evaluation of the specialist.
+Relationship: As with favourites, it is a many-to-many relationship, but the meaning is different.
+Use: Voting can be used for rankings or evaluations of specialists, where the results can be visible to all users.
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
