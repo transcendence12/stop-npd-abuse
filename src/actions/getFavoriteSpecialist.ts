@@ -20,5 +20,6 @@ export const getFavoriteSpecialist = async () => {
       specialist: true,
     },
   });
+  // console.log(favorites)
   return favorites.map((favorite)=>favorite.specialist)
 };

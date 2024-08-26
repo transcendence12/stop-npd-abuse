@@ -1,10 +1,10 @@
 "use client";
 import { getFavoriteSpecialist } from "@/actions/getFavoriteSpecialist";
 import { useEffect, useState } from "react";
-import { SpecialistItem } from "@/types/SpecialistItem";
+import { FavoriteSpecialist } from "@/types/FavoriteSpecialist";
 
 export const FavoriteSpecialistsList:React.FC = () => {
-  const [favorites, setFavorites] = useState<SpecialistItem[]>([]);
+  const [favorites, setFavorites] = useState<FavoriteSpecialist[]>([]);
   useEffect(() => {
     const fetchFavorites = async () => {
       const data = await getFavoriteSpecialist();
@@ -19,7 +19,7 @@ export const FavoriteSpecialistsList:React.FC = () => {
         (specialist =>(
           <li key={specialist.id}>
             {specialist.firstName} {specialist.lastName} -{" "}
-            {specialist.specialisation && specialist.specialisation.join(", ").replace(/_/g, " ")}
+            {specialist.specialisationTypes && specialist.specialisationTypes.join(", ").replace(/_/g, " ")}
           </li>
         ))
       )}
