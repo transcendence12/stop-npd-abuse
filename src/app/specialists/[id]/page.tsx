@@ -30,7 +30,7 @@ async function SpecialistItemPage({ params }: SpecialistByIdProps) {
       <h1 className="text-4xl font-bold mb-4">
         {specialist.firstName} {specialist.lastName}{" "}
         <span className="text-red-800 font-normal text-m ml-7">
-          {user && (
+          {(
             <ButtonAddToFavorite
               specialistId={specialist.id}
               userId={user?.id}

@@ -57,7 +57,7 @@ export const SpecialistsList: React.FC<SpecialistsPageProps> = async () => {
                 </p>
               </Link>
               <div className="flex gap-6 justify-center items-baseline">
-                {user && (
+                {(
                   <ButtonAddToFavorite
                     specialistId={specialist.id}
                     userId={user?.id}
