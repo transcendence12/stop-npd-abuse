@@ -25,6 +25,13 @@ export async function getSpecialistById(
         socialMediaLinks: true,
         specialisationTypes: true,
         books: true,
+        
+        favorites: true, // To pobiera wszystkie dane ulubionych
+        // _count: {
+        //   select: {
+        //     favorites: true, // To zlicza ulubione
+        //   },
+        // },
       },
     });
     if(singleSpecialist){

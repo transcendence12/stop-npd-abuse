@@ -2,14 +2,29 @@ import { Specialist } from "@/types/Specialist";
 import Link from "next/link";
 import { ButtonSeeMore } from "./ButtonSeeMore";
 import { ButtonAddToFavorite } from "./ButtonAddToFavorite";
+import prisma from "@/lib/prismaClient";
+import { checkUser } from "@/lib/checkUser";
+import { auth } from "@clerk/nextjs/server";
 
 interface SpecialistsPageProps {
   specialists: Specialist[];
 }
 
-export const SpecialistsList: React.FC<SpecialistsPageProps> = ({
-  specialists,
-}) => {
+export const SpecialistsList: React.FC<SpecialistsPageProps> = async () => {
+  const { userId } = auth();
+  if (userId) {
+    // Query DB for user specific information or display assets only to signed in users
+  }
+  const specialists = await prisma.specialist.findMany({
+    include: {
+      _count: {
+        select: {
+          favorites: true,
+        },
+      },
+    },
+  });
+  const user = await checkUser();
   return (
     <main className="text-center pt-32 px-5">
       <h1 className="text-4xl md:text-5xl font-bold mb-5">
@@ -25,7 +40,7 @@ export const SpecialistsList: React.FC<SpecialistsPageProps> = ({
                 </p>
                 <p className="text-grey-600">
                   Specjalizacje:{" "}
-                  {specialist.specialisation
+                  {specialist.specialisationTypes
                     .join(", ")
                     .replace("_", " ")
                     .toLowerCase()}
@@ -37,9 +52,17 @@ export const SpecialistsList: React.FC<SpecialistsPageProps> = ({
                     : "Brak danych"}
                 </p>
                 <p className="text-grey-600">Email: {specialist.email}</p>
+                <p className="text-grey-600">
+                  Polubienia: {specialist._count.favorites}
+                </p>
               </Link>
               <div className="flex gap-6 justify-center items-baseline">
-                <ButtonAddToFavorite specialistId={specialist.id}/>
+                {user && (
+                  <ButtonAddToFavorite
+                    specialistId={specialist.id}
+                    userId={user?.id}
+                  />
+                )}
                 <ButtonSeeMore specialistId={specialist.id} />
               </div>
             </li>
