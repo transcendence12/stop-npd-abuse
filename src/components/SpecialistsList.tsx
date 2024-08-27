@@ -5,6 +5,7 @@ import { ButtonAddToFavorite } from "./ButtonAddToFavorite";
 import prisma from "@/lib/prismaClient";
 import { checkUser } from "@/lib/checkUser";
 import { auth } from "@clerk/nextjs/server";
+import { LikeButton } from "./LikeButton";
 
 interface SpecialistsPageProps {
   specialists: Specialist[];
@@ -57,6 +58,7 @@ export const SpecialistsList: React.FC<SpecialistsPageProps> = async () => {
                 </p>
               </Link>
               <div className="flex gap-6 justify-center items-baseline">
+                <LikeButton initialLikes={0} specialistId={""} />
                 {(
                   <ButtonAddToFavorite
                     specialistId={specialist.id}
