@@ -35,24 +35,15 @@ model User {
 // Model Vote będzie powiązany z User poprzez userId, który odnosi się do clerkUserId
 model Vote {
   id           String     @id @default(dbgenerated("gen_random_uuid()"))
-  text         String?
-  // relation to user
-  userId       String?
-  user         User?       @relation(fields: [userId], references: [clerkUserId], onDelete: Cascade)
-  anonymousId String
-  ipAddress String?
+  userId       String
+  user         User       @relation(fields: [userId], references: [clerkUserId], onDelete: Cascade)
   createdAt    DateTime   @default(now())
   specialistId String
   specialist   Specialist @relation(fields: [specialistId], references: [id], onDelete: Cascade)
   // @@schema("public")
-  // unikalność dla zalogowanych, niezalogowanych użytkowników, i dla IP:
-  @@unique([userId, specialistId], name: "unique_user_vote") 
-  @@unique([anonymousId, specialistId], name: "unique_anonymous_vote")
-  @@unique([ipAddress, specialistId], name: "unique_ip_vote")
+  @@unique([userId, specialistId]) 
   @@index([userId])
   @@index([specialistId])
-  @@index([anonymousId])
-  @@index([ipAddress])
 }
 // Favorite będzie również korzystać z userId, który odnosi się do clerkUserId w modelu User
 

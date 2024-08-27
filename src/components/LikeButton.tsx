@@ -1,38 +1,41 @@
 "use client";
 import { incrementOrDecrementLike } from "@/actions/incrementOrDecrementLike";
+import { useUser } from "@clerk/nextjs";
+import { SignIn } from "@clerk/nextjs";
 import { useState } from "react";
 
 export const LikeButton = ({
   initialLikes,
   specialistId,
-  userId,
+  hasJustLiked,
 }: {
   initialLikes: number;
   specialistId: string;
-  userId?: string;
+  hasJustLiked: boolean;
 }) => {
   const [likes, setLikes] = useState(initialLikes);
-  const [error, setError] = useState<string | null>(null)
+  const [hasVoted, setHasVoted] = useState(hasJustLiked);
+  const { isSignedIn } = useUser();
 
   const handleLikes = async () => {
+    if (!isSignedIn) {
+      return <SignIn />;
+    }
     try {
-        const updatedLikes = await incrementOrDecrementLike(specialistId, userId);
-    setLikes(updatedLikes);
-    setError(null)
-    } catch(error){
-        if(error instanceof Error){
-            setError(error.message)
-        } else {
-            setError("An unexpected error occured!")
-        }
-        
+      const updatedLikes = await incrementOrDecrementLike(specialistId);
+      setLikes(updatedLikes);
+      setHasVoted(!hasVoted)
+    } catch (error) {
+      console.error("Błąd podczas aktualizacji polubień.", error);
     }
   };
   return (
     <div>
-      <p>Suma polubień: {likes} 👍</p>
-      {error && <p className="text-red-500">{error}</p>}
-      <button onClick={handleLikes}>{likes > initialLikes ? "Odlub 👎" : "Polub 👍"}</button>
+      <p>Suma polubień: {likes}</p>
+      {/* {error && <p className="text-red-500">{error}</p>} */}
+      <button onClick={handleLikes}>
+        {hasVoted ? "Odlub 👎" : "Polub 👍"}
+      </button>
     </div>
   );
 };

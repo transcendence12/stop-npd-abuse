@@ -1,23 +1,26 @@
 "use server";
 import prisma from "@/lib/prismaClient";
-// aby uzyskać adres IP:
-import { headers } from "next/headers";
-import { getAnonymousId } from "@/lib/getAnonymousId";
+import { checkUser } from "@/lib/checkUser";
+
+
 
 export const incrementOrDecrementLike = async (
   specialistId: string,
-  userId?: string
-) => {
-  const anonymousId = !userId ? getAnonymousId() : undefined;
+):Promise<number> => {
+  // sprawdzam usera za pomocą checkUser()
+  // czekam na zakonczenie funkcji checkUser()
+  const user = await checkUser(); 
 
-  //   pobranie IP:
-  const ipAddress = headers().get("x-forwarded-for") || "UNKNOWN_IP";
-
+  if(!user){
+    throw new Error("Musisz być zalogowany żeby polubić specjalistę.")
+  }
+  // uzyskuje dostep do właściwości user po "odpakowaniu" Promise
+  const userId = user.clerkUserId;
   //   sprawdzenie czy user już polubił specjalistę:
   const existingVote = await prisma.vote.findFirst({
     where: {
       specialistId,
-      OR: [{ userId }, { anonymousId }, { ipAddress }],
+      userId,
     },
   });
 
@@ -32,8 +35,6 @@ export const incrementOrDecrementLike = async (
         data: {
             specialistId,
             userId,
-            anonymousId: anonymousId || "",
-            ipAddress,
         }
     })
   }

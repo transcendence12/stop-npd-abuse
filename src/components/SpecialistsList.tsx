@@ -18,12 +18,8 @@ export const SpecialistsList: React.FC<SpecialistsPageProps> = async () => {
   }
   const specialists = await prisma.specialist.findMany({
     include: {
-      _count: {
-        select: {
-          favorites: true,
-        },
-      },
-    },
+      votes: true,
+    }
   });
   const user = await checkUser();
   return (
@@ -53,12 +49,9 @@ export const SpecialistsList: React.FC<SpecialistsPageProps> = async () => {
                     : "Brak danych"}
                 </p>
                 <p className="text-grey-600">Email: {specialist.email}</p>
-                <p className="text-grey-600">
-                  Polubienia: {specialist._count.favorites}
-                </p>
               </Link>
               <div className="flex gap-6 justify-center items-baseline">
-                <LikeButton initialLikes={0} specialistId={""} />
+                <LikeButton initialLikes={specialist.votes.length} specialistId={specialist.id} hasJustLiked={specialist.hasVoted} />
                 {(
                   <ButtonAddToFavorite
                     specialistId={specialist.id}
