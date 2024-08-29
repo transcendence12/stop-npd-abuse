@@ -1,9 +1,12 @@
 "use server";
 import prisma from "@/lib/prismaClient";
 import { Specialist } from "@/types/Specialist";
+import { auth } from "@clerk/nextjs/server";
 
 
 async function getSpecialists(): Promise<Specialist[]> {
+  // pobierz userId z sesji usera
+  const {userId} = auth()
   try {
     const specialists = await prisma.specialist.findMany({
       select: {
@@ -12,12 +15,20 @@ async function getSpecialists(): Promise<Specialist[]> {
         lastName: true,
         specialisationTypes: true,
         email: true,
-        phoneNumber: true
+        phoneNumber: true,
+        votes: {
+          select: {
+            userId: true
+          }
+        },
       },
     });
     return specialists.map((specialist)=>({
         ...specialist,
-        specialisation: specialist.specialisationTypes.map(type => type.toString())
+        specialisation: specialist.specialisationTypes.map(type => type.toString()),
+        votes: specialist.votes.length,
+        // czy user polubił:
+        hasVoted: userId ? specialist.votes.some((vote)=> vote.userId === userId) : false,
     }));
   } catch (error) {
     console.error("Error fetching specialists:", error);

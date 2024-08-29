@@ -10,7 +10,7 @@ export async function addFavoriteSpecialist(specialistId: string) {
   const user = await currentUser();
   if (!user) {
     throw new Error(
-      "Musisz być zalogowany aby dodać specjaliste do ulubionych."
+      "Musisz być zalogowany aby dodać specjalistę do ulubionych."
     );
   }
 

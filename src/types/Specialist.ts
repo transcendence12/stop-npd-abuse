@@ -5,4 +5,7 @@ export interface Specialist {
     specialisation: string[];
     phoneNumber: string | null;
     email: string;
+    // votes: { id: string; userId: string; createdAt: Date; specialistId: string }[];
+    votes: number;
+    hasVoted: boolean;
 }

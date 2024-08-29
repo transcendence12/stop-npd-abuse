@@ -35,15 +35,13 @@ model User {
 // Model Vote będzie powiązany z User poprzez userId, który odnosi się do clerkUserId
 model Vote {
   id           String     @id @default(dbgenerated("gen_random_uuid()"))
-  text         String?
-  // relation to user
   userId       String
   user         User       @relation(fields: [userId], references: [clerkUserId], onDelete: Cascade)
   createdAt    DateTime   @default(now())
   specialistId String
   specialist   Specialist @relation(fields: [specialistId], references: [id], onDelete: Cascade)
   // @@schema("public")
-
+  @@unique([userId, specialistId]) 
   @@index([userId])
   @@index([specialistId])
 }
