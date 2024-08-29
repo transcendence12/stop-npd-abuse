@@ -6,6 +6,6 @@ export interface Specialist {
     phoneNumber: string | null;
     email: string;
     // votes: { id: string; userId: string; createdAt: Date; specialistId: string }[];
-    votes: number | null;
+    votes: number;
     hasVoted: boolean;
 }

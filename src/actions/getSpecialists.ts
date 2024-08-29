@@ -5,6 +5,7 @@ import { auth } from "@clerk/nextjs/server";
 
 
 async function getSpecialists(): Promise<Specialist[]> {
+  // pobierz userId z sesji usera
   const {userId} = auth()
   try {
     const specialists = await prisma.specialist.findMany({
@@ -15,13 +16,18 @@ async function getSpecialists(): Promise<Specialist[]> {
         specialisationTypes: true,
         email: true,
         phoneNumber: true,
-        votes: true,
+        votes: {
+          select: {
+            userId: true
+          }
+        },
       },
     });
     return specialists.map((specialist)=>({
         ...specialist,
         specialisation: specialist.specialisationTypes.map(type => type.toString()),
-        votes: specialist.votes?.length,
+        votes: specialist.votes.length,
+        // czy user polubił:
         hasVoted: userId ? specialist.votes.some((vote)=> vote.userId === userId) : false,
     }));
   } catch (error) {

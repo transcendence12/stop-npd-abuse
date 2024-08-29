@@ -15,19 +15,20 @@ export const incrementOrDecrementLike = async (
     throw new Error("Musisz być zalogowany żeby polubić specjalistę.")
   }
   // uzyskuje dostep do właściwości user po "odpakowaniu" Promise
+  // const userId = user.id; (?)
   const userId = user.clerkUserId;
   //   sprawdzenie czy user już polubił specjalistę:
-  const existingVote = await prisma.vote.findFirst({
+  const vote = await prisma.vote.findFirst({
     where: {
       specialistId,
       userId,
     },
   });
 
-  if(existingVote){
+  if(vote){
     await prisma.vote.delete({
         where: {
-            id: existingVote.id
+            id: vote.id
         }
     })
   } else {

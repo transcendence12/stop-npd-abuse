@@ -6,6 +6,7 @@ import prisma from "@/lib/prismaClient";
 import { checkUser } from "@/lib/checkUser";
 import { auth } from "@clerk/nextjs/server";
 import { LikeButton } from "./LikeButton";
+import getSpecialists from "@/actions/getSpecialists";
 
 interface SpecialistsPageProps {
   specialists: Specialist[];
@@ -16,11 +17,13 @@ export const SpecialistsList: React.FC<SpecialistsPageProps> = async () => {
   if (userId) {
     // Query DB for user specific information or display assets only to signed in users
   }
-  const specialists = await prisma.specialist.findMany({
-    include: {
-      votes: true,
-    }
-  });
+  // Pobierz dane specjalistów
+  const specialists = await getSpecialists(); 
+  // const specialists = await prisma.specialist.findMany({
+  //   include: {
+  //     votes: true,
+  //   }
+  // });
   const user = await checkUser();
   return (
     <main className="text-center pt-32 px-5">
@@ -37,7 +40,7 @@ export const SpecialistsList: React.FC<SpecialistsPageProps> = async () => {
                 </p>
                 <p className="text-grey-600">
                   Specjalizacje:{" "}
-                  {specialist.specialisationTypes
+                  {specialist.specialisation
                     .join(", ")
                     .replace("_", " ")
                     .toLowerCase()}
@@ -51,7 +54,7 @@ export const SpecialistsList: React.FC<SpecialistsPageProps> = async () => {
                 <p className="text-grey-600">Email: {specialist.email}</p>
               </Link>
               <div className="flex gap-6 justify-center items-baseline">
-                <LikeButton initialLikes={specialist.votes.length} specialistId={specialist.id} hasJustLiked={specialist.hasVoted} />
+                <LikeButton initialLikes={specialist.votes} specialistId={specialist.id} hasJustLiked={specialist.hasVoted} />
                 {(
                   <ButtonAddToFavorite
                     specialistId={specialist.id}
