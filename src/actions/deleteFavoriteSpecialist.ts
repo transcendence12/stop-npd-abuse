@@ -7,7 +7,7 @@ export const deleteFavoriteSpecialist = async (specialistId: string) => {
   const userId = auth();
 
   const user = await currentUser();
-  if (!userId) {
+  if (!userId || !user) {
     throw new Error(
       "Musisz być zalogowany żeby usunąć specjalistę z listy ulubionych specialistów."
     );
