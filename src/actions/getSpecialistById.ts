@@ -25,19 +25,19 @@ export async function getSpecialistById(
         socialMediaLinks: true,
         specialisationTypes: true,
         books: true,
-        
-        favorites: true, // To pobiera wszystkie dane ulubionych
-        // _count: {
-        //   select: {
-        //     favorites: true, // To zlicza ulubione
-        //   },
-        // },
+        favorites: true,
+        votes: {
+          select: {
+            id: true
+          }
+        }
       },
     });
     if(singleSpecialist){
         return {
             ...singleSpecialist,
-            specialisation: singleSpecialist.specialisationTypes.map(type=> type.toString())
+            specialisation: singleSpecialist.specialisationTypes.map(type=> type.toString()),
+            votesCount: singleSpecialist.votes.length
         }
     }
     return null

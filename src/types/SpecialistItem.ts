@@ -18,5 +18,5 @@ export interface SpecialistItem {
   socialMediaLinks: SocialMediaLink[] | null;
   specialisation: string[] | null;
   books: Book[] | null;
-  // likes: number;
+  votesCount: number;
 }

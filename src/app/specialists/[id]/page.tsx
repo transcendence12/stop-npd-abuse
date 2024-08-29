@@ -11,16 +11,7 @@ interface SpecialistByIdProps {
 }
 async function SpecialistItemPage({ params }: SpecialistByIdProps) {
   const specialist = await getSpecialistById(params.id);
-  // const userId = auth();
-  // const specialists = await prisma.specialist.findMany({
-  //   include: {
-  //     _count: {
-  //       select: {
-  //         favorites: true,
-  //       },
-  //     },
-  //   },
-  // });
+
   const user = await checkUser();
   if (!specialist) {
     return notFound();
@@ -30,12 +21,12 @@ async function SpecialistItemPage({ params }: SpecialistByIdProps) {
       <h1 className="text-4xl font-bold mb-4">
         {specialist.firstName} {specialist.lastName}{" "}
         <span className="text-red-800 font-normal text-m ml-7">
-          {(
+          {
             <ButtonAddToFavorite
               specialistId={specialist.id}
               userId={user?.id}
             />
-          )}
+          }
         </span>
       </h1>
       <section className="px-12 py-6 flex flex-col justify-center items-start gap-3">
@@ -108,8 +99,11 @@ async function SpecialistItemPage({ params }: SpecialistByIdProps) {
           <strong>Książki: </strong>
           {specialist.books?.map((book) => book.title + ", ")}
         </p>
+        <p>
+          <strong>Polubienia: </strong>
+          {specialist.votesCount}
+        </p>
       </section>
-      {/* <p className="text-grey-600">Polubienia: {specialist._count.favorites}</p> */}
     </main>
   );
 }
