@@ -1,6 +1,7 @@
 "use client";
 
 import { deleteFavoriteSpecialist } from "@/actions/deleteFavoriteSpecialist";
+import { getFavoriteSpecialist } from "@/actions/getFavoriteSpecialist";
 import { checkUser } from "@/lib/checkUser";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
@@ -15,6 +16,7 @@ export const ButtonDeleteFromFavorite: React.FC<
 > = ({ specialistId, specialistName }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPending, setIsPending] = useState(false);
+  // const [isPending, startTransition] = useTransition()
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
@@ -24,9 +26,18 @@ export const ButtonDeleteFromFavorite: React.FC<
       setIsPending(true);
       
       await deleteFavoriteSpecialist(specialistId);
+      console.log("SPECIALIST IS DELETED NOW");
+      // opcja z useTransition i getFavoriteSpecialist tez nie działa
+      // await getFavoriteSpecialist()
+      // startTransition(()=> {
+      //   router.refresh()
+      // })
+      // router.push('/favorites')
       // router.refresh();
-      // router.refresh() nie działa. Tymczasowe rozwiązanie, które działa to:
+      // router.refresh() nie działa. Tymczasowe rozwiązanie, które DZIAŁA to:
       window.location.reload()
+      // tez nie działa ponowne pobranie specjalistów bo usunięci nie znikają z ui:
+      // await getFavoriteSpecialist()
     } catch (error) {
       console.error(
         "Nie udalo się usunąć specjalisty z Twojej listy ulubionych specjalistów.",
