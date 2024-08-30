@@ -24,7 +24,9 @@ export const ButtonDeleteFromFavorite: React.FC<
       setIsPending(true);
       
       await deleteFavoriteSpecialist(specialistId);
-      router.refresh();
+      // router.refresh();
+      // router.refresh() nie działa. Tymczasowe rozwiązanie, które działa to:
+      window.location.reload()
     } catch (error) {
       console.error(
         "Nie udalo się usunąć specjalisty z Twojej listy ulubionych specjalistów.",
