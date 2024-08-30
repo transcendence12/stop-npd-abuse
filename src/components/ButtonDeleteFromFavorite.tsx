@@ -22,8 +22,9 @@ export const ButtonDeleteFromFavorite: React.FC<
     // const loggedInUser = await checkUser()
     try {
       setIsPending(true);
-      router.refresh();
+      
       await deleteFavoriteSpecialist(specialistId);
+      router.refresh();
     } catch (error) {
       console.error(
         "Nie udalo się usunąć specjalisty z Twojej listy ulubionych specjalistów.",
@@ -35,6 +36,7 @@ export const ButtonDeleteFromFavorite: React.FC<
     } finally {
       setIsPending(false);
       setIsModalOpen(false);
+      
     }
   };
   return (
