@@ -28,7 +28,7 @@ export const Nav = () => {
           <li key={link.href}>
             <Link
               className={`${
-                pathname === link.href ? "text-zinc-900" : "text-zinc-400"
+                pathname === link.href ? "text-slate-900" : "text-slate-400"
               }`}
               href={link.href}
             >

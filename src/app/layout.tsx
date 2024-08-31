@@ -23,7 +23,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body
-          className={`${inter.className} antialiased bg-zinc-100 text-zinc-900 min-h-screen`}
+          className={`${inter.className} antialiased bg-slate-100 text-slate-900 min-h-screen`}
         >
           <Container>
             <Header />
