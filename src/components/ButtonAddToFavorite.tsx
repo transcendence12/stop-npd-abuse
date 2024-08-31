@@ -3,6 +3,9 @@ import { addFavoriteSpecialist } from "@/actions/addFavoriteSpecialist";
 import { useTransition, useState } from "react";
 import { useRouter } from "next/navigation";
 import { checkUser } from "@/lib/checkUser";
+import { Button } from "@/components/ui/button";
+import { LoginAlert } from "./LoginAlert";
+
 
 interface ButtonAddToFavoriteProps {
   specialistId: string;
@@ -34,17 +37,18 @@ export const ButtonAddToFavorite: React.FC<ButtonAddToFavoriteProps> = ({
   };
   return (
     <div>
-      <button
-        className="text-red-700"
+      <Button
+        className=""
         onClick={handleAddToFavorites}
         disabled={isPending}
       >
         {isPending ? "Dodawanie..." : "❤ Dodaj do ulubionych"}
-      </button>
+      </Button>
       {showLoginMessage && (
-        <p className="text-red-500 mt-2">
-          Aby dodać specjalistę do ulubionych musisz być zalogowany.
-        </p>
+        // <p className="text-red-500 mt-2">
+        //   Aby dodać specjalistę do ulubionych musisz być zalogowany.
+        // </p>
+        <LoginAlert />
       )}
     </div>
   );

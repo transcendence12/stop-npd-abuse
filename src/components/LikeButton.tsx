@@ -3,6 +3,8 @@ import { incrementOrDecrementLike } from "@/actions/incrementOrDecrementLike";
 import { SignIn, useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Button } from "./ui/button";
+import { useToast } from "./../hooks/use-toast";
 
 export const LikeButton = ({
   initialLikes,
@@ -19,6 +21,7 @@ export const LikeButton = ({
   const { isSignedIn } = useUser();
 
   const router = useRouter();
+  const { toast } = useToast();
 
   const handleLikes = async () => {
     if (!isSignedIn) {
@@ -37,16 +40,21 @@ export const LikeButton = ({
       setError(null);
     } catch (error) {
       console.error("Błąd podczas aktualizacji polubień.", error);
-      setError("Wystąpił błąd podczas aktualizacji polubień");
+      const errorMessage = "Wystąpił błąd podczas aktualizacji polubień";
+      setError(errorMessage);
+      toast({
+        title: "Uh oh! Coś poszło nie tak.",
+        description: errorMessage,
+      });
     }
   };
   return (
     <div>
       <p>Suma polubień: {likes}</p>
-      {error && <p className="text-red-500">{error}</p>}
-      <button onClick={handleLikes}>
+      <Button onClick={handleLikes}>
         {hasVoted ? "Odlub 👎" : "Polub 👍"}
-      </button>
+      </Button>
+      {error && <p className="text-red-500 mt-5">{error}</p>}
     </div>
   );
 };

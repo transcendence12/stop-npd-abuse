@@ -5,6 +5,7 @@ import { getFavoriteSpecialist } from "@/actions/getFavoriteSpecialist";
 import { checkUser } from "@/lib/checkUser";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 interface ButtonDeleteFromFavoriteProps {
   specialistId: string;
@@ -19,12 +20,13 @@ export const ButtonDeleteFromFavorite: React.FC<
   // const [isPending, startTransition] = useTransition()
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+  const { toast } = useToast();
 
   const handleDelete = async () => {
     // const loggedInUser = await checkUser()
     try {
       setIsPending(true);
-      
+
       await deleteFavoriteSpecialist(specialistId);
       console.log("SPECIALIST IS DELETED NOW");
       // opcja z useTransition i getFavoriteSpecialist tez nie działa
@@ -33,9 +35,9 @@ export const ButtonDeleteFromFavorite: React.FC<
       //   router.refresh()
       // })
       // router.push('/favorites')
-      // router.refresh();
+      router.refresh();
       // router.refresh() nie działa. Tymczasowe rozwiązanie, które DZIAŁA to:
-      window.location.reload()
+      // window.location.reload()
       // tez nie działa ponowne pobranie specjalistów bo usunięci nie znikają z ui:
       // await getFavoriteSpecialist()
     } catch (error) {
@@ -43,13 +45,17 @@ export const ButtonDeleteFromFavorite: React.FC<
         "Nie udalo się usunąć specjalisty z Twojej listy ulubionych specjalistów.",
         error
       );
-      setError(
-        "Nie udalo się usunąć specjalisty z Twojej listy ulubionych specjalistów. Spróbuj ponownie później."
-      );
+      const errorMessage =
+        "Nie udalo się usunąć specjalisty z Twojej listy ulubionych specjalistów. Spróbuj ponownie później.";
+      setError(errorMessage);
+      toast({
+        title: "Uh oh! Coś poszło nie tak.",
+        description: errorMessage,
+        variant: "destructive",
+      });
     } finally {
       setIsPending(false);
       setIsModalOpen(false);
-      
     }
   };
   return (
@@ -86,8 +92,6 @@ export const ButtonDeleteFromFavorite: React.FC<
           </div>
         </div>
       )}
-
-      {error && <p className="text-red-500 mt-2">{error}</p>}
     </div>
   );
 };
