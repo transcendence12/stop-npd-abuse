@@ -56,7 +56,7 @@ export const ButtonDeleteFromFavorite: React.FC<
     <div>
       <button
         type="button"
-        className="hover:underline"
+        className="btn"
         onClick={() => setIsModalOpen(true)}
         disabled={isPending}
       >
@@ -77,7 +77,7 @@ export const ButtonDeleteFromFavorite: React.FC<
               {isPending ? "Usuwanie..." : "Usuń"}
             </button>
             <button
-              className="bg-gray-300 px-4 py-2 rounded"
+              className="btn"
               onClick={() => setIsModalOpen(false)}
               disabled={isPending}
             >

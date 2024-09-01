@@ -41,10 +41,10 @@ export const LikeButton = ({
     }
   };
   return (
-    <div>
+    <div className="flex justify-start items-center gap-4">
       <p>Suma polubień: {likes}</p>
       {error && <p className="text-red-500">{error}</p>}
-      <button onClick={handleLikes}>
+      <button className="btn" onClick={handleLikes}>
         {hasVoted ? "Odlub 👎" : "Polub 👍"}
       </button>
     </div>

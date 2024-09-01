@@ -10,7 +10,7 @@ interface ButtonSeeMoreProps {
 export const ButtonSeeMore:React.FC<ButtonSeeMoreProps> =({specialistId,}) => {
   return (
     <Link href={`specialists/${specialistId}`}>
-      <button type="button" className="mt-2 text-blue-600">
+      <button type="button" className="btn mt-2 text-blue-600">
         Zobacz więcej
       </button>
     </Link>
