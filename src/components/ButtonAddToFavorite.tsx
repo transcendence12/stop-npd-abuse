@@ -35,7 +35,7 @@ export const ButtonAddToFavorite: React.FC<ButtonAddToFavoriteProps> = ({
   return (
     <div>
       <button
-        className="text-red-700"
+        className="btn text-red-700"
         onClick={handleAddToFavorites}
         disabled={isPending}
       >
