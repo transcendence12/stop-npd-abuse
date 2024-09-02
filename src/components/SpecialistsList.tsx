@@ -19,53 +19,13 @@ export const SpecialistsList: React.FC<SpecialistsPageProps> = async () => {
   }
   // Pobierz dane specjalistów
   const specialists = await getSpecialists();
-
+  const specialistsCount = await prisma.specialist.count()
   const user = await checkUser();
   return (
     <main className="pt-24 px-5">
       <h1 className="text-4xl md:text-5xl font-bold mb-10 text-center">
-        Wszyscy specjaliści
+        Wszyscy specjaliści({specialistsCount})
       </h1>
-      {/* <ul className="space-y-4">
-        {specialists &&
-          specialists.map((specialist) => (
-            <li key={specialist.id} className="border p-4 rounded-md shadow-sm">
-              <Link href={`/specialists/${specialist.id}`}>
-                <p className="text-xl font-semibold">
-                  {specialist.firstName} {specialist.lastName}
-                </p>
-                <p className="text-grey-600">
-                  Specjalizacje:{" "}
-                  {specialist.specialisation
-                    .join(", ")
-                    .replace("_", " ")
-                    .toLowerCase()}
-                </p>
-                <p className="text-grey-600">
-                  Telefon:{" "}
-                  {specialist.phoneNumber
-                    ? specialist.phoneNumber
-                    : "Brak danych"}
-                </p>
-                <p className="text-grey-600">Email: {specialist.email}</p>
-              </Link>
-              <div className="flex gap-6 justify-center items-center">
-                <LikeButton
-                  initialLikes={specialist.votes}
-                  specialistId={specialist.id}
-                  hasJustLiked={specialist.hasVoted}
-                />
-
-                <ButtonAddToFavorite
-                  specialistId={specialist.id}
-                  userId={user?.id}
-                />
-
-                <ButtonSeeMore specialistId={specialist.id} />
-              </div>
-            </li>
-          ))}
-      </ul> */}
       <section className="container mx-auto">
         <div className="flex justify-center items-center gap-16 flex-wrap">
           {specialists &&

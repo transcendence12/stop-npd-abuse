@@ -8,12 +8,13 @@ import { ButtonDeleteFromFavorite } from "./ButtonDeleteFromFavorite";
 export const FavoriteSpecialistsList: React.FC = () => {
   const [favorites, setFavorites] = useState<FavoriteSpecialist[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
         const data = await getFavoriteSpecialist();
         // console.log(data)
+        
         setFavorites(data);
       } catch (error) {
         setError("Wystąpił błąd podczas ładowania danych.");

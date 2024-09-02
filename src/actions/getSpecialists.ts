@@ -23,12 +23,14 @@ async function getSpecialists(): Promise<Specialist[]> {
         },
       },
     });
+    // const specialistsCount = await prisma.specialist.count()
     return specialists.map((specialist)=>({
         ...specialist,
         specialisation: specialist.specialisationTypes.map(type => type.toString()),
         votes: specialist.votes.length,
         // czy user polubił:
         hasVoted: userId ? specialist.votes.some((vote)=> vote.userId === userId) : false,
+        // specialistsCount: specialistsCount,
     }));
   } catch (error) {
     console.error("Error fetching specialists:", error);
