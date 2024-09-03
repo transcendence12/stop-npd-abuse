@@ -16,7 +16,7 @@ export const Nav = () => {
     <nav className="flex justify-between items-center py-4 px-8 border-b">
       <Link href="/">
         <Image
-          src="/logo-placeholder-mark-adriane-unsplash.jpg"
+          src="/logo.png"
           alt="Photo by MARK ADRIANE on Unsplash"
           className="w-[45px] h-[45px] rounded-md"
           width="45"
