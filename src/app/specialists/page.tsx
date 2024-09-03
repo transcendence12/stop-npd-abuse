@@ -8,8 +8,8 @@ const SpecialistsPage = async () => {
   const specialists = await getSpecialists();
 
   return (
-    <main className="pt-12 px-5">
-      <h1 className="text-4xl md:text-5xl font-bold mb-10 text-center">
+    <main className="pt-12 px-5 bg-base-200 min-h-screen">
+      <h1 className="text-4xl md:text-5xl font-bold mt-12 mb-12 text-center">
         Wszyscy specjaliści({specialistsCount})
       </h1>
       <Suspense fallback="Ładowanie...">

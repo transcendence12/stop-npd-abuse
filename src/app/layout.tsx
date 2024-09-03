@@ -24,7 +24,7 @@ export default function RootLayout({
       <html lang="en">
         {/* bg-zinc-100 text-zinc-900 min-h-screen */}
         <body
-          className={`${inter.className} antialiased`}
+          className={`${inter.className} antialiased bg-base-200 min-h-screen`}
         >
           <Container>
             <Header />
