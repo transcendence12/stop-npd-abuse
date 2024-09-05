@@ -1,3 +1,5 @@
+import { ButtonHero } from "./ButtonHero";
+
 export const Hero: React.FC = () => {
   return (
     <div className="hero bg-base-200 min-h-screen">
@@ -11,7 +13,7 @@ export const Hero: React.FC = () => {
             prawników, którzy udzielają wsparcia i pracują z osobami dotkniętymi
             specyficznym rodzajem przemocy, tzw.przemocą narcystyczną.
           </p>
-          <button className="btn btn-primary">Wyświetl specjalistów</button>
+          <ButtonHero />
         </div>
       </div>
     </div>
