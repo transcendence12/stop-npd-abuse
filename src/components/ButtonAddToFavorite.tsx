@@ -16,7 +16,7 @@ export const ButtonAddToFavorite: React.FC<ButtonAddToFavoriteProps> = ({
   const [showLoginMessage, setShowLoginMessage] = useState(false);
   const router = useRouter();
 
-  const ariaLabel = "Zapisz specjaliste na liście ulubionych"
+  const ariaLabel = "Zapisz specjaliste na liście ulubionych";
 
   const handleAddToFavorites = () => {
     if (!userId) {
@@ -34,6 +34,9 @@ export const ButtonAddToFavorite: React.FC<ButtonAddToFavoriteProps> = ({
         });
     });
   };
+  const handleCloseErrorMessage = () => {
+    setShowLoginMessage(false);
+  };
   return (
     <div className="flex justify-center items-center gap-4">
       <button
@@ -44,7 +47,6 @@ export const ButtonAddToFavorite: React.FC<ButtonAddToFavoriteProps> = ({
       >
         {/* {isPending ? "Dodawanie..." : "❤ Zapisz w ulubionych"} */}
         {isPending ? (
-          
           <svg
             className="h-6 w-6"
             viewBox="0 0 24 24"
@@ -77,9 +79,28 @@ export const ButtonAddToFavorite: React.FC<ButtonAddToFavoriteProps> = ({
         )}
       </button>
       {showLoginMessage && (
-        <p className="text-red-500 mt-2">
-          Aby dodać specjalistę do ulubionych musisz być zalogowany.
-        </p>
+        // <p className="text-red-500 mt-2">
+        //   Aby dodać specjalistę do ulubionych musisz być zalogowany.
+        // </p>
+        <div role="alert" className="alert alert-error">
+          <svg
+            onClick={handleCloseErrorMessage}
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6 shrink-0 stroke-current"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          <span>
+            Aby dodać specjalistę do ulubionych musisz być zalogowany.
+          </span>
+        </div>
       )}
     </div>
   );
