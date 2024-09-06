@@ -17,7 +17,7 @@ async function SpecialistItemPage({ params }: SpecialistByIdProps) {
     return notFound();
   }
   return (
-    <main className="flex flex-col items-center justify-center mt-8 card bg-base-100">
+    <main className="flex flex-col items-center justify-center mt-8 min-h-screen">
       {/* text-4xl font-bold mb-4 flex items-center justify-center */}
       <h1 className="card-title text-3xl">
         <span>
