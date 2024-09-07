@@ -117,21 +117,6 @@ export const SpecialistsList: React.FC<SpecialistsListProps> = async ({
             </div>
           ))}
       </div>
-
-      {/* Paginacja DaisyUI */}
-      {/* <div className="join flex justify-center mt-8">
-        {Array.from({ length: totalPages }).map((_, index) => (
-          <Link
-            key={index}
-            href={`?page=${index + 1}`}
-            className={`join-item btn ${
-              index + 1 === currentPage ? "btn-active" : ""
-            }`}
-          >
-            {index + 1}
-          </Link>
-        ))}
-      </div> */}
       <Pagination totalPages={totalPages} currentPage={currentPage} />
     </section>
   );
