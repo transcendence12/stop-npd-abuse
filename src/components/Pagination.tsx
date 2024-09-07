@@ -13,7 +13,6 @@ export const Pagination: React.FC<PaginationProps> = ({
 }) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  //   const currentPage = Number(searchParams.get("page")) || 1;
 
   const createPageURL = (pageNumber: number | string) => {
     const params = new URLSearchParams(searchParams);
@@ -22,7 +21,7 @@ export const Pagination: React.FC<PaginationProps> = ({
   };
 
   return (
-    <div className="join flex items-center justify-center mt-8 space-x-2">
+    <div className="join flex items-center justify-center mt-8 mb-8">
       {currentPage > 1 ? (
         <Link href={createPageURL(currentPage - 1)}>
           <button className="join-item btn">«</button>
