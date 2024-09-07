@@ -7,22 +7,27 @@ import { checkUser } from "@/lib/checkUser";
 import { auth } from "@clerk/nextjs/server";
 import { LikeButton } from "./LikeButton";
 import getSpecialists from "@/actions/getSpecialists";
+import { Pagination } from "./Pagination";
 
-interface SpecialistsPageProps {
+interface SpecialistsListProps {
   specialists: Specialist[];
+  totalPages: number;
+  currentPage: number;
 }
 
-export const SpecialistsList: React.FC<SpecialistsPageProps> = async () => {
+export const SpecialistsList: React.FC<SpecialistsListProps> = async ({
+  specialists,
+  totalPages,
+  currentPage,
+}) => {
   const { userId } = auth();
   if (userId) {
     // Query DB for user specific information or display assets only to signed in users
   }
-  // Pobierz dane specjalistów
-  const specialists = await getSpecialists();
 
   const user = await checkUser();
   return (
-    <section className="container mx-auto">
+    <section className="container mx-auto max-w-[1100px]">
       <div className="flex justify-center items-center gap-16 flex-wrap">
         {specialists &&
           specialists.map((specialist) => (
@@ -112,6 +117,22 @@ export const SpecialistsList: React.FC<SpecialistsPageProps> = async () => {
             </div>
           ))}
       </div>
+
+      {/* Paginacja DaisyUI */}
+      {/* <div className="join flex justify-center mt-8">
+        {Array.from({ length: totalPages }).map((_, index) => (
+          <Link
+            key={index}
+            href={`?page=${index + 1}`}
+            className={`join-item btn ${
+              index + 1 === currentPage ? "btn-active" : ""
+            }`}
+          >
+            {index + 1}
+          </Link>
+        ))}
+      </div> */}
+      <Pagination totalPages={totalPages} currentPage={currentPage} />
     </section>
   );
 };
