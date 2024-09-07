@@ -6,6 +6,7 @@ import { checkUser } from "@/lib/checkUser";
 import { auth } from "@clerk/nextjs/server";
 import { LikeButton } from "./LikeButton";
 import { Pagination } from "./Pagination";
+import { SearchSpecialist } from "./SearchSpecialist";
 
 interface SpecialistsListProps {
   specialists: Specialist[];
@@ -26,6 +27,7 @@ export const SpecialistsList: React.FC<SpecialistsListProps> = async ({
   const user = await checkUser();
   return (
     <section className="container mx-auto max-w-[1100px]">
+      <SearchSpecialist />
       <div className="flex justify-center items-center gap-16 flex-wrap">
         {specialists &&
           specialists.map((specialist) => (
