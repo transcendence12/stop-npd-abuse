@@ -34,6 +34,7 @@ export const ButtonDeleteFromFavorite: React.FC<
       // })
       // router.push('/favorites')
       // router.refresh();
+      // router.replace("/favorites")
       // router.refresh() nie działa. Tymczasowe rozwiązanie, które DZIAŁA to:
       window.location.reload()
       // tez nie działa ponowne pobranie specjalistów bo usunięci nie znikają z ui:

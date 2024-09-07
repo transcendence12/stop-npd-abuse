@@ -2,12 +2,12 @@ import Link from "next/link";
 
 export const Footer = () => {
   return (
-    <footer className="mt-auto text-center text-zinc-400 py-5 px-7 border-t">
+    // mt-auto text-center text-zinc-400 py-5 px-7 border-t
+    <footer className="footer footer-center bg-neutral text-neutral-content p-4">
       <small>
-        &copy; {new Date().getFullYear()} All rights reserved. Pomysł i
+        &copy; {new Date().getFullYear()} - All rights reserved. Pomysł i
         wykonanie:{" "}
-        <span className="hover:underline">
-          {" "}
+        <span className="link link-hover">
           <Link href="https://www.github.com/transcendence12">
             Małgorzata Krawczuk
           </Link>

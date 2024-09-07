@@ -8,4 +8,5 @@ export interface Specialist {
     // votes: { id: string; userId: string; createdAt: Date; specialistId: string }[];
     votes: number;
     hasVoted: boolean;
+    // specialistsCount: number;
 }

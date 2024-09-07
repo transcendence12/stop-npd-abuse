@@ -17,19 +17,18 @@ async function SpecialistItemPage({ params }: SpecialistByIdProps) {
     return notFound();
   }
   return (
-    <main className="flex flex-col items-center justify-center mt-8">
-      <h1 className="text-4xl font-bold mb-4">
-        {specialist.firstName} {specialist.lastName}{" "}
+    <main className="flex flex-col items-center justify-center mt-8 min-h-screen">
+      {/* text-4xl font-bold mb-4 flex items-center justify-center */}
+      <h1 className="card-title text-3xl">
+        <span>
+          {specialist.firstName} {specialist.lastName}
+        </span>
         <span className="text-red-800 font-normal text-m ml-7">
-          {
-            <ButtonAddToFavorite
-              specialistId={specialist.id}
-              userId={user?.id}
-            />
-          }
+          <ButtonAddToFavorite specialistId={specialist.id} userId={user?.id} />
         </span>
       </h1>
-      <section className="px-12 py-6 flex flex-col justify-center items-start gap-3">
+      {/* px-12 py-6 flex flex-col justify-center items-start gap-3  */}
+      <section className="card-body">
         <p>
           <strong>Specjalizacje: </strong>
           {specialist.specialisation &&

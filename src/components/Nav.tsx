@@ -13,10 +13,10 @@ export const Nav = () => {
   const pathname = usePathname();
   console.log(pathname);
   return (
-    <nav className="flex justify-between items-center py-4 px-8 border-b">
+    <nav className="flex justify-between items-center py-4 px-8 navbar bg-base-100">
       <Link href="/">
         <Image
-          src="/logo-placeholder-mark-adriane-unsplash.jpg"
+          src="/logo1.png"
           alt="Photo by MARK ADRIANE on Unsplash"
           className="w-[45px] h-[45px] rounded-md"
           width="45"
@@ -28,7 +28,7 @@ export const Nav = () => {
           <li key={link.href}>
             <Link
               className={`${
-                pathname === link.href ? "text-zinc-900" : "text-zinc-400"
+                pathname === link.href ? "text-slate-900" : "text-slate-400"
               }`}
               href={link.href}
             >
