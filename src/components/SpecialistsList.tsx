@@ -2,11 +2,9 @@ import { Specialist } from "@/types/Specialist";
 import Link from "next/link";
 import { ButtonSeeMore } from "./ButtonSeeMore";
 import { ButtonAddToFavorite } from "./ButtonAddToFavorite";
-import prisma from "@/lib/prismaClient";
 import { checkUser } from "@/lib/checkUser";
 import { auth } from "@clerk/nextjs/server";
 import { LikeButton } from "./LikeButton";
-import getSpecialists from "@/actions/getSpecialists";
 import { Pagination } from "./Pagination";
 
 interface SpecialistsListProps {
@@ -64,12 +62,12 @@ export const SpecialistsList: React.FC<SpecialistsListProps> = async ({
                   </span>
                   <span>
                     {specialist.phoneNumber ? (
-                      <a
+                      <Link
                         href={`tel:${specialist.phoneNumber}`}
                         className="hover:underline"
                       >
                         {specialist.phoneNumber}
-                      </a>
+                      </Link>
                     ) : (
                       "Brak danych"
                     )}
