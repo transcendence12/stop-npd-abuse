@@ -5,32 +5,28 @@ import { auth } from "@clerk/nextjs/server";
 import { SpecialisationType } from "@prisma/client";
 
 interface GetSpecialistsParams {
-  search?: string | undefined;
+  query?: string | undefined;
   offset?: number;
   limit?: number;
 }
 
 // Promise<Specialist[]>
 async function getSpecialists({
-  search = '',
+  query,
   offset = 0,
   limit = 4,
 }: GetSpecialistsParams) {
   // pobierz userId z sesji usera
   const { userId } = auth();
-  const params = new URLSearchParams();
-  // const query = params.get("query" || "");
-  // const page = parseInt(params.get(("page") || "1", 4));
-  // const pageSize = 4;
+
   try {
-    // const skip = (page - 1) * pageSize;
     const specialists = await prisma.specialist.findMany({
       skip: offset,
       take: limit,
       where: {
         OR: [
-          { firstName: { contains: search, mode: "insensitive" } },
-          { lastName: { contains: search, mode: "insensitive" } },
+          { firstName: { contains: query, mode: "insensitive" } },
+          { lastName: { contains: query, mode: "insensitive" } },
           // { specialisationTypes: { some: { type: { contains: search, mode: "insensitive" } } } },
         ],
       },
@@ -48,7 +44,7 @@ async function getSpecialists({
         },
       },
     });
-    // const specialistsCount = await prisma.specialist.count()
+
     const data = specialists.map((specialist) => ({
       ...specialist,
       specialisation: specialist.specialisationTypes.map((type) =>
@@ -59,22 +55,21 @@ async function getSpecialists({
       hasVoted: userId
         ? specialist.votes.some((vote) => vote.userId === userId)
         : false,
-      // specialistsCount: specialistsCount,
     }));
     const totalCount = await prisma.specialist.count({
       where: {
         OR: [
-          { firstName: { contains: search, mode: "insensitive" } },
-          { lastName: { contains: search, mode: "insensitive" } },
-          // { specialisationTypes: { some: { type: { contains: search, mode: "insensitive" } } } },
+          { firstName: { contains: query, mode: "insensitive" } },
+          { lastName: { contains: query, mode: "insensitive" } },
+          // { specialisationTypes: { some: { type: { contains: query, mode: "insensitive" } } } },
         ],
       },
     });
-    const totalPages = Math.ceil(totalCount/limit)
-    return {specialists: data, totalCount, totalPages};
+    const totalPages = Math.ceil(totalCount / limit);
+    return { specialists: data, totalCount, totalPages };
   } catch (error) {
     console.error("Error fetching specialists:", error);
-    return { specialists: [], totalCount: 0, totalPages: 0 };;
+    return { specialists: [], totalCount: 0, totalPages: 0 };
   }
 }
 

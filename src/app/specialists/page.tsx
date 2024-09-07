@@ -4,16 +4,18 @@ import prisma from "@/lib/prismaClient";
 import { Suspense } from "react";
 
 interface SpecialistsPageProps {
-  searchParams: { page?: string };
+  searchParams: { page?: string; query?: string };
 }
 const SpecialistsPage = async ({ searchParams }: SpecialistsPageProps) => {
   const currentPage = parseInt(searchParams.page || "1", 10); // Pobierz numer strony z parametrów URL
   const limit = 4; // Ustal limit na stronę
   const offset = (currentPage - 1) * limit;
+  const query = searchParams.query || "";
   // Pobierz specjalistów z serwera
   const { specialists, totalCount, totalPages } = await getSpecialists({
     offset,
     limit,
+    query
   });
 
   return (
