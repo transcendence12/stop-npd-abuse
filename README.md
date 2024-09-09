@@ -5,6 +5,7 @@ Application with profiles of professionals providing support to, among others, p
 ###
 Features:
 - Displaying list of specialists;
+- Searching by name;
 - Displaying specialist's details ui;
 - Auth with Clerk Provider;
 - Saving data in Neon database with Prisma ORM;
