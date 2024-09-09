@@ -18,7 +18,7 @@ async function SpecialistItemPage({ params }: SpecialistByIdProps) {
   }
   return (
     <main className="flex flex-col items-center justify-center min-h-screen">
-      <div className="card bg-base-100 w-2/5 shadow-xl">
+      <div className="card bg-base-100 md:w-2/5 shadow-xl">
         <h1 className="card-title text-3xl mt-8 ml-8 mr-8 flex justify-between">
           <span>
             {specialist.firstName} {specialist.lastName}

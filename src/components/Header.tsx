@@ -4,7 +4,7 @@ import { Nav } from "./Nav";
 export const Header = async () => {
   const user = await checkUser();
   return (
-    <header className="">
+    <header className="shadow-xl">
       <Nav />
     </header>
   );

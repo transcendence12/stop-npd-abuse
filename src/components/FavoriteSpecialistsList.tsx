@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { FavoriteSpecialist } from "@/types/FavoriteSpecialist";
 import Link from "next/link";
 import { ButtonDeleteFromFavorite } from "./ButtonDeleteFromFavorite";
+import { ButtonSeeMore } from "./ButtonSeeMore";
 
 export const FavoriteSpecialistsList: React.FC = () => {
   const [favorites, setFavorites] = useState<FavoriteSpecialist[]>([]);
@@ -14,7 +15,7 @@ export const FavoriteSpecialistsList: React.FC = () => {
       try {
         const data = await getFavoriteSpecialist();
         // console.log(data)
-        
+
         setFavorites(data);
       } catch (error) {
         setError("Wystąpił błąd podczas ładowania danych.");
@@ -30,24 +31,30 @@ export const FavoriteSpecialistsList: React.FC = () => {
   if (error) return <p className="text-red-500">{error}</p>;
 
   return (
-    <ul className="w-3/4 text-center m-auto">
+    <div className="md:w-3/4 flex flex-wrap justify-center items-center gap-8 m-auto mb-10">
       {favorites.map((specialist) => (
-        <div className="flex justify-between items-center" key={specialist.id}>
-          <Link href={`/specialists/${specialist.id}`} key={specialist.id}>
-            <li className="mb-4 border-b bg-sky-100 hover:bg-sky-300 link hover:underline">
-              {specialist.firstName} {specialist.lastName} -{" "}
+        <div className="card bg-base-100 w-96 shadow-xl" key={specialist.id}>
+          <div className="card-body items-center text-center">
+            <h2 className="card-title">
+              <Link href={`/specialists/${specialist.id}`} key={specialist.id}>
+                {specialist.firstName} {specialist.lastName}
+              </Link>
+            </h2>
+            <p>
               {specialist.specialisationTypes &&
                 specialist.specialisationTypes.join(", ").replace(/_/g, " ")}
-            </li>
-          </Link>
-          <span>
-            <ButtonDeleteFromFavorite
-              specialistId={specialist.id}
-              specialistName={`${specialist.firstName} ${specialist.lastName}`}
-            />
-          </span>
+            </p>
+            <div className="card-actions justify-center items-center gap-8">
+              <ButtonDeleteFromFavorite
+                specialistId={specialist.id}
+                specialistName={`${specialist.firstName} ${specialist.lastName}`}
+              />
+
+              <ButtonSeeMore specialistId={specialist.id} />
+            </div>
+          </div>
         </div>
       ))}
-    </ul>
+    </div>
   );
 };

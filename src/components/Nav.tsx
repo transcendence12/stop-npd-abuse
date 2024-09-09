@@ -13,7 +13,7 @@ export const Nav = () => {
   const pathname = usePathname();
   console.log(pathname);
   return (
-    <nav className="flex justify-between items-center py-4 px-8 navbar bg-base-100 shadow-lg">
+    <nav className="flex justify-between items-center py-4 px-8 navbar bg-base-100">
       <Link href="/">
         <Image
           src="/logo1.png"

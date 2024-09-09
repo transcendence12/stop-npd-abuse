@@ -61,7 +61,7 @@ export const ButtonDeleteFromFavorite: React.FC<
         onClick={() => setIsModalOpen(true)}
         disabled={isPending}
       >
-        Usuń z ulubionych
+        Usuń
       </button>
       {isModalOpen && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
