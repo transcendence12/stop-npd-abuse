@@ -1,5 +1,7 @@
 "use client";
 import { incrementOrDecrementLike } from "@/actions/incrementOrDecrementLike";
+import { HeartFilledIcon } from "@/assets/icons/HeartFilledIcon";
+import { HeartNonFilledIcon } from "@/assets/icons/HeartNonFilledIcon";
 import { SignIn, useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -20,11 +22,10 @@ export const LikeButton = ({
 
   const router = useRouter();
   const ariaLabel = hasVoted
-  ? `Odlub specjalistę. Liczba polubień: ${likes}`
-  : `Polub specjalistę. Liczba polubień: ${likes}`;
+    ? `Odlub specjalistę. Liczba polubień: ${likes}`
+    : `Polub specjalistę. Liczba polubień: ${likes}`;
 
   const handleLikes = async () => {
-    
     if (!isSignedIn) {
       router.push(
         `/sign-in?redirect_url=${encodeURIComponent("/specialists")}`
@@ -35,7 +36,6 @@ export const LikeButton = ({
       return;
     }
     try {
-
       const updatedLikes = await incrementOrDecrementLike(specialistId);
       setLikes(updatedLikes);
       setHasVoted(!hasVoted);
@@ -57,35 +57,13 @@ export const LikeButton = ({
         {likes}
         {/* {hasVoted ? "Odlub 👎" : "Polub 👍"} */}
         {hasVoted ? (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="oklch(var(--sc))"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-            />
-          </svg>
+          <span className="tooltip" data-tip="Wycofaj swoje polubienie">
+            <HeartFilledIcon />
+          </span>
         ) : (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-            />
-          </svg>
+          <span className="tooltip" data-tip="Polub">
+            <HeartNonFilledIcon />
+          </span>
         )}
       </button>
     </div>

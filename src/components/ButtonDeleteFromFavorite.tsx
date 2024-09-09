@@ -61,7 +61,9 @@ export const ButtonDeleteFromFavorite: React.FC<
         onClick={() => setIsModalOpen(true)}
         disabled={isPending}
       >
-        <TrashIcon />
+        <span className="tooltip" data-tip="Usuń z listy ulubionych">
+          <TrashIcon />
+        </span>
       </button>
       {isModalOpen && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">

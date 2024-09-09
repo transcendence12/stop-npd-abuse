@@ -51,7 +51,7 @@ async function SpecialistItemPage({ params }: SpecialistByIdProps) {
             {specialist.city}
           </p>
           <p className="flex gap-2">
-            <span><EmailIcon /></span>
+            <span className="tooltip" data-tip="Adres email"><EmailIcon /></span>
             <a
               className="link link-hover link-primary"
               href={`mailto:${specialist.email}`}
@@ -60,7 +60,7 @@ async function SpecialistItemPage({ params }: SpecialistByIdProps) {
             </a>
           </p>
           <p className="flex gap-2">
-            <span><PhoneIcon /></span>
+            <span className="tooltip" data-tip="Numer telefonu"><PhoneIcon /></span>
             <a
               className="link link-hover link-primary"
               href={`tel:${specialist.phoneNumber}`}
@@ -70,7 +70,7 @@ async function SpecialistItemPage({ params }: SpecialistByIdProps) {
           </p>
           {specialist.website && (
             <p className="flex gap-2">
-              <span><WebsiteIcon /></span>
+              <span className="tooltip" data-tip="Strona internetowa"><WebsiteIcon /></span>
               <a
                 href={specialist.website}
                 className="link link-hover link-primary"

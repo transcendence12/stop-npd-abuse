@@ -47,7 +47,7 @@ export const SpecialistsList: React.FC<SpecialistsListProps> = async ({
                   {specialist.specialisation[0].replace("_", " ").toLowerCase()}
                 </div>
                 <p className="flex gap-2">
-                  <span>
+                  <span className="tooltip" data-tip="Numer telefonu">
                     <PhoneIcon />
                   </span>
                   <span>
@@ -64,7 +64,7 @@ export const SpecialistsList: React.FC<SpecialistsListProps> = async ({
                   </span>
                 </p>
                 <p className="flex gap-2">
-                  <span>
+                  <span className="tooltip" data-tip="Adres email">
                     <EmailIcon />
                   </span>
                   <span className="hover:underline">
