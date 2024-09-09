@@ -6,7 +6,7 @@ export const Hero: React.FC = () => {
       <div className="hero-content text-center">
         <div className="max-w-md">
           <h1 className="text-5xl font-bold">
-            Znajdź wsparcie w mierzeniu się z narcystyczną przemocą
+            Znajdź wsparcie w uwalnianiu się od narcystycznej przemocy
           </h1>
           <p className="py-6">
             Skorzystaj z listy kontaktów do psychologów, psychoterapeutów, trenerów i

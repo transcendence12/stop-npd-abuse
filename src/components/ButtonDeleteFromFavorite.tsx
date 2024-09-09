@@ -2,6 +2,7 @@
 
 import { deleteFavoriteSpecialist } from "@/actions/deleteFavoriteSpecialist";
 import { getFavoriteSpecialist } from "@/actions/getFavoriteSpecialist";
+import { TrashIcon } from "@/assets/icons/TrashIcon";
 import { checkUser } from "@/lib/checkUser";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
@@ -24,7 +25,7 @@ export const ButtonDeleteFromFavorite: React.FC<
     // const loggedInUser = await checkUser()
     try {
       setIsPending(true);
-      
+
       await deleteFavoriteSpecialist(specialistId);
       console.log("SPECIALIST IS DELETED NOW");
       // opcja z useTransition i getFavoriteSpecialist tez nie działa
@@ -36,7 +37,7 @@ export const ButtonDeleteFromFavorite: React.FC<
       // router.refresh();
       // router.replace("/favorites")
       // router.refresh() nie działa. Tymczasowe rozwiązanie, które DZIAŁA to:
-      window.location.reload()
+      window.location.reload();
       // tez nie działa ponowne pobranie specjalistów bo usunięci nie znikają z ui:
       // await getFavoriteSpecialist()
     } catch (error) {
@@ -50,7 +51,6 @@ export const ButtonDeleteFromFavorite: React.FC<
     } finally {
       setIsPending(false);
       setIsModalOpen(false);
-      
     }
   };
   return (
@@ -61,7 +61,9 @@ export const ButtonDeleteFromFavorite: React.FC<
         onClick={() => setIsModalOpen(true)}
         disabled={isPending}
       >
-        Usuń
+        <span className="tooltip" data-tip="Usuń z listy ulubionych">
+          <TrashIcon />
+        </span>
       </button>
       {isModalOpen && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">

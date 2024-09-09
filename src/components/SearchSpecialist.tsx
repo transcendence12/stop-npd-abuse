@@ -62,7 +62,7 @@ export const SearchSpecialist = () => {
               className="btn btn-ghost btn-circle btn-xs"
               onClick={handleClearInput}
             >
-              X
+              &#10005;
             </button>
           )}
         </div>
