@@ -67,16 +67,16 @@ export const SearchSpecialist = () => {
           )}
         </div>
       </div>
-      <select className="select select-bordered join-item">
+      {/* <select className="select select-bordered join-item">
         <option disabled selected>
           Kategoria
         </option>
         <option>Psychologia</option>
         <option>Prawo</option>
         <option>Inne</option>
-      </select>
+      </select> */}
       <div className="indicator">
-        <button className="btn join-item">
+        <button className="btn btn-accent join-item">
           {isSearching ? <span>Szukanie...</span> : <span>Szukaj</span>}
         </button>
       </div>
