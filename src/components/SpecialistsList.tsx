@@ -9,6 +9,7 @@ import { Pagination } from "./Pagination";
 import { SearchSpecialist } from "./SearchSpecialist";
 import { PhoneIcon } from "@/assets/icons/PhoneIcon";
 import { EmailIcon } from "@/assets/icons/EmailIcon";
+import { ButtonCopy } from "./ButtonCopy";
 
 interface SpecialistsListProps {
   specialists: Specialist[];
@@ -62,6 +63,9 @@ export const SpecialistsList: React.FC<SpecialistsListProps> = async ({
                       "Brak danych"
                     )}
                   </span>
+                  <span className="tooltip" data-tip="Kopiuj">
+                    <ButtonCopy textToCopy={specialist.phoneNumber} />
+                  </span>
                 </p>
                 <p className="flex gap-2">
                   <span className="tooltip" data-tip="Adres email">
@@ -71,6 +75,9 @@ export const SpecialistsList: React.FC<SpecialistsListProps> = async ({
                     <a href={`mailto:${specialist.email}`}>
                       {specialist.email}
                     </a>
+                  </span>
+                  <span className="tooltip" data-tip="Kopiuj">
+                    <ButtonCopy textToCopy={specialist.email} />
                   </span>
                 </p>
 

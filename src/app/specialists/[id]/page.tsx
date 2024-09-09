@@ -4,6 +4,7 @@ import { EmailIcon } from "@/assets/icons/EmailIcon";
 import { PhoneIcon } from "@/assets/icons/PhoneIcon";
 import { WebsiteIcon } from "@/assets/icons/WebsiteIcon";
 import { ButtonAddToFavorite } from "@/components/ButtonAddToFavorite";
+import { ButtonCopy } from "@/components/ButtonCopy";
 import { checkUser } from "@/lib/checkUser";
 import prisma from "@/lib/prismaClient";
 import { auth } from "@clerk/nextjs/server";
@@ -51,26 +52,38 @@ async function SpecialistItemPage({ params }: SpecialistByIdProps) {
             {specialist.city}
           </p>
           <p className="flex gap-2">
-            <span className="tooltip" data-tip="Adres email"><EmailIcon /></span>
+            <span className="tooltip" data-tip="Adres email">
+              <EmailIcon />
+            </span>
             <a
               className="link link-hover link-primary"
               href={`mailto:${specialist.email}`}
             >
               {specialist.email}
             </a>
+            <span className="tooltip" data-tip="Kopiuj">
+              <ButtonCopy textToCopy={specialist.email} />
+            </span>
           </p>
           <p className="flex gap-2">
-            <span className="tooltip" data-tip="Numer telefonu"><PhoneIcon /></span>
+            <span className="tooltip" data-tip="Numer telefonu">
+              <PhoneIcon />
+            </span>
             <a
               className="link link-hover link-primary"
               href={`tel:${specialist.phoneNumber}`}
             >
               {specialist.phoneNumber}
             </a>
+            <span className="tooltip" data-tip="Kopiuj">
+              <ButtonCopy textToCopy={specialist.phoneNumber} />
+            </span>
           </p>
           {specialist.website && (
             <p className="flex gap-2">
-              <span className="tooltip" data-tip="Strona internetowa"><WebsiteIcon /></span>
+              <span className="tooltip" data-tip="Strona internetowa">
+                <WebsiteIcon />
+              </span>
               <a
                 href={specialist.website}
                 className="link link-hover link-primary"
@@ -129,7 +142,10 @@ async function SpecialistItemPage({ params }: SpecialistByIdProps) {
               href="/specialists"
               className="btn btn-outline btn-neutral mb-4 align-left"
             >
-              <span><ArrowLeftIcon /></span> Wróć do listy
+              <span>
+                <ArrowLeftIcon />
+              </span>{" "}
+              Wróć do listy
             </Link>
           </div>
         </section>
