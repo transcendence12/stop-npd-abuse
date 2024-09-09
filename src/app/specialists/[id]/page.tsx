@@ -1,4 +1,8 @@
 import { getSpecialistById } from "@/actions/getSpecialistById";
+import { ArrowLeftIcon } from "@/assets/icons/ArrowLeftIcon";
+import { EmailIcon } from "@/assets/icons/EmailIcon";
+import { PhoneIcon } from "@/assets/icons/PhoneIcon";
+import { WebsiteIcon } from "@/assets/icons/WebsiteIcon";
 import { ButtonAddToFavorite } from "@/components/ButtonAddToFavorite";
 import { checkUser } from "@/lib/checkUser";
 import prisma from "@/lib/prismaClient";
@@ -46,8 +50,8 @@ async function SpecialistItemPage({ params }: SpecialistByIdProps) {
             <strong>Miasto: </strong>
             {specialist.city}
           </p>
-          <p>
-            <strong>Email: </strong>
+          <p className="flex gap-2">
+            <span><EmailIcon /></span>
             <a
               className="link link-hover link-primary"
               href={`mailto:${specialist.email}`}
@@ -55,8 +59,8 @@ async function SpecialistItemPage({ params }: SpecialistByIdProps) {
               {specialist.email}
             </a>
           </p>
-          <p>
-            <strong>Numer telefonu: </strong>
+          <p className="flex gap-2">
+            <span><PhoneIcon /></span>
             <a
               className="link link-hover link-primary"
               href={`tel:${specialist.phoneNumber}`}
@@ -65,8 +69,8 @@ async function SpecialistItemPage({ params }: SpecialistByIdProps) {
             </a>
           </p>
           {specialist.website && (
-            <p>
-              <strong>Strona internetowa: </strong>
+            <p className="flex gap-2">
+              <span><WebsiteIcon /></span>
               <a
                 href={specialist.website}
                 className="link link-hover link-primary"
@@ -125,7 +129,7 @@ async function SpecialistItemPage({ params }: SpecialistByIdProps) {
               href="/specialists"
               className="btn btn-outline btn-neutral mb-4 align-left"
             >
-              Wróć do listy specjalistów
+              <span><ArrowLeftIcon /></span> Wróć do listy
             </Link>
           </div>
         </section>
