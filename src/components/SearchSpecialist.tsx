@@ -8,7 +8,9 @@ interface SearchSpecialistProps {
   specialisationTypes: string[];
 }
 
-export const SearchSpecialist: React.FC<SearchSpecialistProps> = ({ specialisationTypes}) => {
+export const SearchSpecialist: React.FC<SearchSpecialistProps> = ({
+  specialisationTypes,
+}) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -64,9 +66,9 @@ export const SearchSpecialist: React.FC<SearchSpecialistProps> = ({ specialisati
   // }, [q]);
 
   return (
-    <section className="flex justify-center items-center">
-      <div className="join mb-8">
-        <label className="input input-bordered join join-item relative flex items-center gap-2 pr-10">
+    <section className="flex justify-center items-center px-4 md:px-0 join join-vertical md:join-horizontal lg:join-horizontal">
+      <div className="join mb-8 w-full join-vertical max-w-md space-y-4 md:space-y-0 lg:join-horizontal">
+        <label className="input input-bordered join join-item relative flex items-center gap-2 pr-10 w-full">
           <input
             className="join-item grow"
             placeholder="Szukaj specjalisty"
@@ -95,28 +97,27 @@ export const SearchSpecialist: React.FC<SearchSpecialistProps> = ({ specialisati
         </label>
 
         <select
-          className="select select-bordered join-item"
+          className="select select-bordered join-item max-w-xs w-full md:w-auto"
           onChange={(e) => handleCategoryChange(e.target.value)}
           value={category}
           aria-label="Filter by specialisation"
         >
-          <option value="" selected>
+          <option value="" selected className="max-w-xs md:w-full">
             Kategoria
           </option>
           {/* Check if specialisationTypes is not empty before rendering */}
           {specialisationTypes && specialisationTypes.length > 0 ? (
             specialisationTypes.map((type) => (
-              <option key={type} value={type}>
+              <option key={type} value={type} className="max-w-xs md:w-auto">
                 {type.replace(/_/g, " ").toLowerCase()}
               </option>
             ))
           ) : (
             <option disabled>No categories available</option>
           )}
-          
         </select>
         <div className="indicator">
-          <button className="btn btn-accent join-item">
+          <button className="btn btn-accent join-item w-full md:w-auto">
             {isSearching ? <span>Szukanie...</span> : <span>Szukaj</span>}
           </button>
         </div>
