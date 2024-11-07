@@ -4,13 +4,25 @@ import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useEffect, useRef, useTransition } from "react";
 import { useDebouncedCallback } from "use-debounce";
 
-export const SearchSpecialist = () => {
+interface SearchSpecialistProps {
+  specialisationTypes: string[];
+}
+
+export const SearchSpecialist: React.FC<SearchSpecialistProps> = ({ specialisationTypes}) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
   const [isSearching, startTransition] = useTransition();
   const inputRef = useRef<HTMLInputElement>(null);
   const q = searchParams.get("query")?.toString();
+  const category = searchParams.get("category") || "";
+
+  // Debugging: Check if specialisationTypes is correctly passed
+  specialisationTypes = specialisationTypes || [];
+
+  useEffect(() => {
+    console.log("specialisationTypes:", specialisationTypes);
+  }, [specialisationTypes]);
 
   const handleSearch = useDebouncedCallback((query: string) => {
     startTransition(() => {
@@ -31,6 +43,19 @@ export const SearchSpecialist = () => {
       inputRef.current.value = "";
       handleSearch("");
     }
+  };
+
+  const handleCategoryChange = (selectedCategory: string) => {
+    startTransition(() => {
+      const params = new URLSearchParams(searchParams);
+      if (selectedCategory) {
+        params.set("category", selectedCategory);
+      } else {
+        params.delete("category");
+      }
+      console.log("Updated URL params:", params.toString());
+      replace(`${pathname}?${params.toString()}`);
+    });
   };
   //   useEffect(() => {
   //     if (inputRef.current) {
@@ -69,13 +94,26 @@ export const SearchSpecialist = () => {
           )}
         </label>
 
-        <select className="select select-bordered join-item">
-          <option disabled selected>
+        <select
+          className="select select-bordered join-item"
+          onChange={(e) => handleCategoryChange(e.target.value)}
+          value={category}
+          aria-label="Filter by specialisation"
+        >
+          <option value="" selected>
             Kategoria
           </option>
-          <option>Psychologia</option>
-          <option>Prawo</option>
-          <option>Inne</option>
+          {/* Check if specialisationTypes is not empty before rendering */}
+          {specialisationTypes && specialisationTypes.length > 0 ? (
+            specialisationTypes.map((type) => (
+              <option key={type} value={type}>
+                {type.replace(/_/g, " ").toLowerCase()}
+              </option>
+            ))
+          ) : (
+            <option disabled>No categories available</option>
+          )}
+          
         </select>
         <div className="indicator">
           <button className="btn btn-accent join-item">
