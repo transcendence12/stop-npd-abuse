@@ -24,13 +24,11 @@ export default function RootLayout({
       <html lang="en">
         {/* bg-zinc-100 text-zinc-900 min-h-screen */}
         <body
-          className={`${inter.className} antialiased bg-base-200 min-h-screen`}
+          className={`${inter.className} antialiased bg-base-200 min-h-screen flex flex-col justify-between`}
         >
-          <Container>
-            <Header />
-            {children}
-            <Footer />
-          </Container>
+          <Header />
+          <main className="flex-grow">{children}</main>
+          <Footer />
         </body>
       </html>
     </ClerkProvider>

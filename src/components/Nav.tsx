@@ -37,7 +37,7 @@ export const Nav = () => {
           </li>
         ))}
         <SignedOut>
-          <SignInButton />
+          <SignInButton><button className="btn btn-ghost">Zaloguj się</button></SignInButton>
         </SignedOut>
         <SignedIn>
           <UserButton showName={true} />
