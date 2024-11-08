@@ -6,6 +6,7 @@ import { SpecialisationType } from "@prisma/client";
 
 interface GetSpecialistsParams {
   query?: string | undefined;
+  category?: string;
   offset?: number;
   limit?: number;
 }
@@ -13,11 +14,15 @@ interface GetSpecialistsParams {
 // Promise<Specialist[]>
 async function getSpecialists({
   query,
+  category,
   offset = 0,
   limit = 4,
 }: GetSpecialistsParams) {
   // pobierz userId z sesji usera
   const { userId } = auth();
+
+  const specialisationTypes = Object.values(SpecialisationType)
+  console.log("typ specialisty: ", SpecialisationType)
 
   try {
     const specialists = await prisma.specialist.findMany({
@@ -27,8 +32,14 @@ async function getSpecialists({
         OR: [
           { firstName: { contains: query, mode: "insensitive" } },
           { lastName: { contains: query, mode: "insensitive" } },
+          { city: { contains: query, mode: "insensitive"}}
           // { specialisationTypes: { some: { type: { contains: search, mode: "insensitive" } } } },
         ],
+        ...(category && {
+          specialisationTypes: {
+            has: category as SpecialisationType,
+          }
+        }),
       },
       select: {
         id: true,
@@ -61,15 +72,22 @@ async function getSpecialists({
         OR: [
           { firstName: { contains: query, mode: "insensitive" } },
           { lastName: { contains: query, mode: "insensitive" } },
+          { city: { contains: query, mode: "insensitive"}}
           // { specialisationTypes: { some: { type: { contains: query, mode: "insensitive" } } } },
         ],
+        ...(category && {
+          specialisationTypes: {
+            has: category as SpecialisationType,
+          }
+        })
       },
     });
+    console.log("kategoria: ", category)
     const totalPages = Math.ceil(totalCount / limit);
-    return { specialists: data, totalCount, totalPages };
+    return { specialists: data, totalCount, totalPages, specialisationTypes };
   } catch (error) {
     console.error("Error fetching specialists:", error);
-    return { specialists: [], totalCount: 0, totalPages: 0 };
+    return { specialists: [], totalCount: 0, totalPages: 0, specialisationTypes };
   }
 }
 

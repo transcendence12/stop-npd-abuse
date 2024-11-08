@@ -15,12 +15,14 @@ interface SpecialistsListProps {
   specialists: Specialist[];
   totalPages: number;
   currentPage: number;
+  specialisationTypes: string[];
 }
 
 export const SpecialistsList: React.FC<SpecialistsListProps> = async ({
   specialists,
   totalPages,
   currentPage,
+  specialisationTypes,
 }) => {
   const { userId } = auth();
   if (userId) {
@@ -30,7 +32,7 @@ export const SpecialistsList: React.FC<SpecialistsListProps> = async ({
   const user = await checkUser();
   return (
     <section className="container mx-auto max-w-[1100px]">
-      <SearchSpecialist />
+      <SearchSpecialist specialisationTypes={specialisationTypes} />
       <div className="flex justify-center items-center gap-16 flex-wrap">
         {specialists &&
           specialists.map((specialist) => (
