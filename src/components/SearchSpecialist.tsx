@@ -66,9 +66,9 @@ export const SearchSpecialist: React.FC<SearchSpecialistProps> = ({
   // }, [q]);
 
   return (
-    <section className="flex justify-center items-center px-4 md:px-0 join join-vertical md:join-horizontal lg:join-horizontal">
-      <div className="join mb-8 w-full join-vertical max-w-md space-y-4 md:space-y-0 lg:join-horizontal">
-        <label className="input input-bordered join join-item relative flex items-center gap-2 pr-10 w-full">
+    <section className="flex justify-center items-center px-4 md:px-0 join join-vertical md:join-horizontal lg:join-horizontal w-full">
+      <div className="join mb-8 w-full flex justify-center join-vertical space-y-4 md:space-y-0 md:join-horizontal lg:join-horizontal">
+        <label className="input input-bordered join join-item relative flex items-center gap-2 pr-10 w-full max-w-xs">
           <input
             className="join-item grow"
             placeholder="Szukaj specjalisty"
@@ -97,23 +97,23 @@ export const SearchSpecialist: React.FC<SearchSpecialistProps> = ({
         </label>
 
         <select
-          className="select select-bordered join-item max-w-xs w-full md:w-auto"
+          className="select select-bordered join-item w-full max-w-xs"
           onChange={(e) => handleCategoryChange(e.target.value)}
           value={category}
           aria-label="Filter by specialisation"
         >
-          <option value="" selected className="max-w-xs md:w-full">
+          <option value="" selected>
             Kategoria
           </option>
           {/* Check if specialisationTypes is not empty before rendering */}
           {specialisationTypes && specialisationTypes.length > 0 ? (
             specialisationTypes.map((type) => (
-              <option key={type} value={type} className="max-w-xs md:w-auto">
+              <option key={type} value={type} className="w-full max-w-xs">
                 {type.replace(/_/g, " ").toLowerCase()}
               </option>
             ))
           ) : (
-            <option disabled>No categories available</option>
+            <option disabled>Brak dostępnych kategorii.</option>
           )}
         </select>
         <div className="indicator">
