@@ -7,7 +7,7 @@ import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 const navLinks = [
   { href: "/", label: "Strona główna" },
   { href: "/specialists", label: "Specjaliści" },
-  { href: "/favorites", label: "Moi ulubieni" },
+  { href: "/favorites", label: "Twoi ulubieni" },
 ];
 export const Nav = () => {
   const pathname = usePathname();
