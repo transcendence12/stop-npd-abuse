@@ -16,8 +16,8 @@ export const Nav = () => {
     <nav className="flex justify-between items-center py-4 px-8 navbar bg-base-100">
       <Link href="/">
         <Image
-          src="/logo1.png"
-          alt="Photo by MARK ADRIANE on Unsplash"
+          src="/stop-hand-2.png"
+          alt="Open hand on purple background."
           className="w-[45px] h-[45px] rounded-md"
           width="45"
           height="45"
