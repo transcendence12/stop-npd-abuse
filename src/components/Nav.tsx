@@ -18,9 +18,9 @@ export const Nav = () => {
         <Image
           src="/stop-hand-2.png"
           alt="Open hand on purple background."
-          className="w-[45px] h-[45px] rounded-md"
-          width="45"
-          height="45"
+          className="w-[50px] h-[50px]"
+          width="50"
+          height="50"
         />
       </Link>
       <ul className="flex gap-x-5 text-[14px]">
@@ -28,7 +28,7 @@ export const Nav = () => {
           <li key={link.href}>
             <Link
               className={`${
-                pathname === link.href ? "text-slate-900" : "text-slate-400"
+                pathname === link.href ? "text-primary" : "text-base-content"
               }`}
               href={link.href}
             >
