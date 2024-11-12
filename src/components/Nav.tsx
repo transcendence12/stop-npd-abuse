@@ -80,7 +80,7 @@ export const Nav = () => {
       </div>
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="absolute top-16 left-0 w-full bg-neutral-100 shadow-lg flex justify-between px-6 md:hidden z-50">
+        <div className="absolute top-16 left-0 w-full bg-base-100 shadow-lg flex justify-between px-6 md:hidden z-50">
           <ul className="flex flex-col items-start gap-4 p-4">
             {navLinks.map((link) => (
               <li key={link.href} onClick={() => setIsMobileMenuOpen(false)}>
