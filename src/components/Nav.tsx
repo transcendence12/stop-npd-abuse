@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { useState } from "react";
+import { ButtonBuyMeCoffe } from "./ButtonBuyMeCoffee";
 const navLinks = [
   { href: "/", label: "Strona główna" },
   { href: "/specialists", label: "Specjaliści" },
@@ -13,7 +14,7 @@ const navLinks = [
 export const Nav = () => {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
-  
+
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen((prev) => !prev);
   };
@@ -46,14 +47,18 @@ export const Nav = () => {
             </Link>
           </li>
         ))}
-        <SignedOut>
-          <SignInButton>
-            <button className="btn btn-ghost">Zaloguj się</button>
-          </SignInButton>
-        </SignedOut>
-        <SignedIn>
-          <UserButton showName={true} />
-        </SignedIn>
+        <div className="flex items-center gap-4">
+          <SignedOut>
+            <SignInButton>
+              <button className="btn btn-ghost">Zaloguj się</button>
+            </SignInButton>
+          </SignedOut>
+          <SignedIn>
+            <UserButton showName={true} />
+          </SignedIn>
+
+          <ButtonBuyMeCoffe />
+        </div>
       </ul>
       {/* Hamburger menu icon for mobile */}
       <div className="md:hidden">
@@ -62,20 +67,39 @@ export const Nav = () => {
           className="btn btn-ghost flex items-center justify-center"
           aria-label="Toggle Mobile Menu"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M3.75 5.25h16.5M3.75 12h16.5M3.75 18.75h16.5"
-            />
-          </svg>
+          {isMobileMenuOpen ? (
+            // Close icon
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          ) : (
+            // Hamburger menu icon
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3.75 5.25h16.5M3.75 12h16.5M3.75 18.75h16.5"
+              />
+            </svg>
+          )}
         </button>
       </div>
       {/* Mobile Menu */}
@@ -97,14 +121,19 @@ export const Nav = () => {
               </li>
             ))}
           </ul>
-          <SignedOut>
-            <SignInButton>
-              <button onClick={onSignInClick} className="btn btn-ghost">Zaloguj się</button>
-            </SignInButton>
-          </SignedOut>
-          <SignedIn>
-            <UserButton showName={true} />
-          </SignedIn>
+          <div className="flex flex-col items-center justify-between gap-2">
+            <SignedOut>
+              <SignInButton>
+                <button onClick={onSignInClick} className="btn btn-ghost">
+                  Zaloguj się
+                </button>
+              </SignInButton>
+            </SignedOut>
+            <SignedIn>
+              <UserButton showName={true} />
+            </SignedIn>
+            <ButtonBuyMeCoffe />
+          </div>
         </div>
       )}
     </nav>
