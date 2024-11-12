@@ -22,11 +22,11 @@ export const ButtonCopy: React.FC<CopyButtonProps> = ({ textToCopy }) => {
     }
   }
   return (
-    <p className="relative">
+    <div className="relative">
       <button className="btn btn-xs" onClick={handleCopy}>
         <CopyIcon />
       </button>
       {isCopied && (<span className="tooltip tooltip-open tooltip-top" data-tip="Skopiowano!"></span>)}
-    </p>
+    </div>
   );
 };
