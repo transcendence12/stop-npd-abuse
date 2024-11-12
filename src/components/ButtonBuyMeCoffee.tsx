@@ -1,18 +1,16 @@
-"use client"
-import { CoffeeIcon } from "@/assets/icons/CoffeeIcon"
+"use client";
+import { CoffeeIcon } from "@/assets/icons/CoffeeIcon";
 
 export const ButtonBuyMeCoffe = () => {
-    return (
-        <button className="btn">
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              className="link link-accent link-hover"
-              href="https://paypal.me/Krawczuk?country.x=PL&locale.x=pl_PL"
-            >
-              Postaw mi
-            </a>
-            <CoffeeIcon />
-          </button>
-    )
-}
+  return (
+    <a
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex items-center btn"
+      href="https://paypal.me/Krawczuk"
+    >
+      Postaw mi
+      <CoffeeIcon />
+    </a>
+  );
+};
