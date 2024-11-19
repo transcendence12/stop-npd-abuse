@@ -4,7 +4,7 @@ import { CookiesBannerClient } from './CookiesBannerClient'
 
 export default async function CookiesBannerWrapper() {
   const cookieStore = cookies()
-  const cookieConsent = (await cookieStore).get('cookie_consent')?.value
+  const cookieConsent = await (cookieStore).get('cookie_consent')?.value
 
   console.log("COOKIE CONSENT: ", cookieConsent)
 

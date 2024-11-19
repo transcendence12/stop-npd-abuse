@@ -1,11 +1,25 @@
-export function setCookie(name: string, value: string, days: number) {
-    const expires = new Date()
-    expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000)
-    document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/;SameSite=Lax;Secure`
-  }
-  
-  export function getCookie(name: string): string | null {
-    const matches = document.cookie.match(new RegExp(`(^| )${name}=([^;]+)`))
-    return matches ? decodeURIComponent(matches[2]) : null
-  }
-  
+"use server";
+
+import { cookies } from "next/headers";
+
+export async function setServerCookie(
+  name: string,
+  value: string,
+  days: number
+): Promise<void> {
+  const expires = new Date();
+  expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
+
+  cookies().set(name, value, {
+    expires,
+    path: "/",
+    secure: true,
+    sameSite: "lax",
+  });
+}
+
+export async function getServerCookie(name: string): Promise<string | null> {
+  const cookieStore = cookies();
+  const cookie = cookieStore.get(name);
+  return cookie?.value || null;
+}

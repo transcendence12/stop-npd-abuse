@@ -25,18 +25,16 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        {/* bg-zinc-100 text-zinc-900 min-h-screen */}
-
         <GoogleAnalytics
           GA_MEASUREMENT_ID={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || ""}
         />
-
         <body
           className={`${inter.className} antialiased bg-base-200 min-h-screen flex flex-col justify-between`}
         >
           <Header />
           <main className="flex-grow">{children}</main>
           <Footer />
+
           <CookiesBannerWrapper />
         </body>
       </html>
