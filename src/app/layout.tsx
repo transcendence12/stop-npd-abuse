@@ -5,6 +5,9 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Container } from "@/components/Container";
 import { ClerkProvider } from "@clerk/nextjs";
+import GoogleAnalytics from "@/components/CookiesBanner/GoogleAnalytics";
+import { Suspense } from "react";
+import CookiesBannerWrapper from "@/components/CookiesBanner/CookiesBannerWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,13 +25,17 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        {/* bg-zinc-100 text-zinc-900 min-h-screen */}
+        <GoogleAnalytics
+          GA_MEASUREMENT_ID={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || ""}
+        />
         <body
           className={`${inter.className} antialiased bg-base-200 min-h-screen flex flex-col justify-between`}
         >
           <Header />
           <main className="flex-grow">{children}</main>
           <Footer />
+
+          <CookiesBannerWrapper />
         </body>
       </html>
     </ClerkProvider>
