@@ -29,17 +29,21 @@ export const ButtonHero = () => {
   };
   return (
     <>
-      {loading ? (
-        <p>Ładowanie....</p>
-      ) : (
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={handleRedirectToSpecialistList}
-        >
-          Wyświetl specjalistów
-        </button>
-      )}
+      <button
+        type="button"
+        className="btn btn-primary"
+        onClick={handleRedirectToSpecialistList}
+        disabled={loading}
+      >
+        {loading ? (
+          <>
+            <span className="loading loading-spinner loading-sm mr-2"></span>
+            Ładowanie...
+          </>
+        ) : (
+          'Wyświetl specjalistów'
+        )}
+      </button>
       {errorMessage && (
         <ErrorMessageDisplay
           errorMessage={errorMessage}
