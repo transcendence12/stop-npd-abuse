@@ -5,7 +5,7 @@ import { auth, currentUser } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 
 export const deleteFavoriteSpecialist = async (specialistId: string) => {
-  const userId = auth();
+  const { userId } = auth();
 
   const user = await currentUser();
   if (!userId || !user) {

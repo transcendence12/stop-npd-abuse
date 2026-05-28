@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import "./global.css";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
-import { Container } from "@/components/Container";
 import { ClerkProvider } from "@clerk/nextjs";
 import GoogleAnalytics from "@/components/CookiesBanner/GoogleAnalytics";
 import { Suspense } from "react";
@@ -52,16 +51,17 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="pl">
-        <GoogleAnalytics
-          GA_MEASUREMENT_ID={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || ""}
-        />
         <body
           className={`${inter.className} antialiased bg-base-200 min-h-screen flex flex-col justify-between`}
         >
+          <Suspense fallback={null}>
+            <GoogleAnalytics
+              GA_MEASUREMENT_ID={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || ""}
+            />
+          </Suspense>
           <Header />
           <main className="flex-grow">{children}</main>
           <Footer />
-
           <CookiesBannerWrapper />
         </body>
       </html>
